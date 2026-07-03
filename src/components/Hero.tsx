@@ -32,7 +32,7 @@ const Hero = () => {
                             />
                         </span>
                         <span className="text-sm font-semibold" style={{color: "var(--pp-green)"}}>
-                            Available for Projects
+                           Building&nbsp;&nbsp;Zorqen
                         </span>
                     </div>
 
