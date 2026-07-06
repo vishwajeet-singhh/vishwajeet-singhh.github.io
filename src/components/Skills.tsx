@@ -3,19 +3,29 @@ const Skills = () => {
 
     const skillCategories = [
         {
-            category: "Programming Languages",
+            category: "Languages",
             note: null,
             accent: false,
             skills: [
                 "Java",
                 "Python",
                 "SQL",
-                "JavaScript",
                 "TypeScript",
             ],
         },
         {
-            category: "Frameworks & Libraries",
+            category: "Databases",
+            note: null,
+            accent: false,
+            skills: [
+                "PostgreSQL",
+                "Oracle",
+                "SAP HANA",
+                "Redis",
+            ],
+        },
+        {
+            category: "Backend",
             note: null,
             accent: false,
             skills: [
@@ -24,27 +34,25 @@ const Skills = () => {
                 "Spring Data JPA",
                 "Hibernate",
                 "Kafka",
-                "Flyway",
                 "JUnit",
-                "Mockito",
                 "Testcontainers",
+                "Flyway",
             ],
         },
         {
-            category: "Developer Tools",
+            category: "Cloud & Tools",
             note: null,
             accent: false,
             skills: [
-                "Git",
-                "Docker",
                 "GCP",
-                "PostgreSQL",
-                "Oracle",
+                "Docker",
+                "GitHub Actions",
                 "Grafana",
                 "Prometheus",
-                "Postman",
+                "Git",
                 "Maven",
                 "Gradle",
+                "Postman",
             ],
         },
     ];

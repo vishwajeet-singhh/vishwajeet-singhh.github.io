@@ -2,16 +2,16 @@ import {ReactNode} from "react";
 
 const Experience = () => {
     const fullTimeAchievements = [
-        "Built the entire identity layer as sole engineer - shipping a production IAM service from scratch (auth flows, JWT, RBAC, MFA, OAuth2, account security) that now secures 500+ users across SaaS and on-premises B2B deployments.",
-        "Cut a 48–60 hr data-processing pipeline to ~2–3 hr (roughly 20x) by parallelising table processing 25-at-a-time across 100k+ table datasets and pushing filtering down to the database - so only a fraction of the data ever reached the application instead of the full set.",
-        "Designed a fault-tolerant state-management layer for long-running bulk operations across PostgreSQL, Oracle, and SAP HANA, using a crash-safe journaling pattern for automatic mid-process recovery - and cut bulk-insert time ~50% by disabling triggers during writes.",
-        "Integrated my own open-sourced tool, Helix, into the team's GitHub workflow for automated PR review - halving review turnaround while catching issues a human reviewer can't consistently spot.",
-        "Delivered end-to-end across two Spring Boot microservices (Kafka, Redis) with tenant-configurable REST settings, cross-database SQL handling, and concurrency-safe resource management in a Spring Batch pipeline - validated with JUnit, Mockito, and Testcontainers.",
-        "Automated the full trial-to-billing lifecycle for API-key access, eliminating manual billing tracking entirely.",
-        "Designed a digitally signed, on-premises licensing system with gateway-level validation and automated renewal and onboarding flows.",
-        "Contributed to the AWS → GCP infrastructure migration - containerising services with Docker and managing secrets and connectivity across environments.",
-        "Optimised multi-tenant database connection pooling and designed automated backup-and-recovery workflows for critical services.",
-        "Operated as individual contributor, Scrum Master, and tester simultaneously across a ~20-person product team spanning five functions (UI, AI, Backend, Product, Testing) - owning feature delivery as the team's core developer just two years into my career.",
+        "Work as core developer and Scrum Master on a ~20-person product team spanning UI, AI, Backend, Product, and Testing - owning feature delivery as the team's core developer just two years into my career.",
+        "Designed and shipped a production Identity and Access Management (IAM) system from scratch as the sole engineer on it - auth flows, JWT, RBAC, MFA, OAuth2, and group-based access control - now securing 500+ SaaS users, with the same build running on-premises for B2B tenants. Also built the licensing system for those on-prem installs.",
+        "Built and own two backend microservices as sole engineer - a licensing service powering on-prem/B2B installs and a shared utilities service - designing, shipping, and operating them end to end.",
+        "Shipped core features into a two-service Spring Boot backend (Kafka, Redis) running the data-processing pipeline - a client-facing REST API service and an internal Kafka-consumer execution engine - with tenant-configurable APIs, cross-database SQL handling, and concurrency-safe Spring Batch processing, covered by JUnit and Testcontainers tests.",
+        "Cut a 48–60 hr workflow pipeline to ~2–3 hr on 100k-table datasets via database-layer predicate pushdown, tuned batch concurrency, and HikariCP pool sizing exposed as per-deployment config so each tenant tunes to its own database limits.",
+        "Added crash-safe recovery to long-running bulk operations across PostgreSQL, Oracle, and SAP HANA using a journaling pattern, keeping data consistent through mid-run failures.",
+        "Cut bulk-insert time ~50% by disabling database triggers during high-volume writes, then restoring integrity after load.",
+        "Shipped bulk edit/delete for large data tables - snapshotting matched rows up front so edits can't shift pagination mid-run, with capped batch loops and composite-key dedup to stop rows being skipped or processed twice.",
+        "Containerised services with Docker and reworked GitHub Actions CI/CD pipelines during the company's AWS-to-GCP migration, managing secrets and connectivity across environments.",
+        "Rolled out Helix, my open-source AI code-review tool, across the team's GitHub org - it auto-catches style and correctness issues at PR open so developers self-correct before human review and seniors focus only on logic and flow, cutting review turnaround roughly in half.",
     ];
 
     const internAchievements = [
