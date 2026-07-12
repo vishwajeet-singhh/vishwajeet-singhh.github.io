@@ -34,33 +34,37 @@ const Services = () => {
             className="px-5 md:px-10 py-12 md:py-16"
             style={{scrollMarginTop: "80px"}}
         >
+            {/* Eyebrow */}
+            <p className="dev-label mb-3">// focus areas</p>
+
             {/* Heading */}
             <h2
                 className="mb-8"
-                style={{color: "var(--pp-text)", fontSize: "clamp(28px, 4vw, 38px)", fontWeight: 800}}
+                style={{color: "var(--dev-text)", fontSize: "clamp(22px, 3vw, 28px)", fontWeight: 700}}
             >
-                Services
+                Focus Areas
             </h2>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4 ">
                 {services.map((service, index) => (
-                    <div key={index} className="pp-card flex flex-col ">
+                    <div key={index} className="dev-card flex flex-col ">
                         <div
                             className="flex items-center justify-center mb-4 mx-auto"
                             style={{
                                 width: "44px",
                                 height: "44px",
-                                borderRadius: "12px",
-                                backgroundColor: "var(--pp-nav-active-bg)",
+                                borderRadius: "6px",
+                                border: "1px solid var(--dev-border)",
+                                backgroundColor: "var(--dev-tag-bg)",
                             }}
                         >
-                            <service.icon size={22} style={{color: "var(--pp-blue)" }}/>
+                            <service.icon size={20} style={{color: "var(--dev-accent)"}}/>
                         </div>
                         <h3 className="mb-2"
-                            style={{color: "var(--pp-text)", fontSize: "18px", fontWeight: 700,   textAlign: "center",}}>
+                            style={{color: "var(--dev-text)", fontSize: "18px", fontWeight: 700, textAlign: "center"}}>
                             {service.title}
                         </h3>
-                        <p style={{color: "var(--pp-body)", fontSize: "15px", lineHeight: 1.7, textAlign: "justify"}}>
+                        <p style={{color: "var(--dev-body)", fontSize: "15px", lineHeight: 1.7, textAlign: "justify"}}>
                             {service.description}
                         </p>
                     </div>

@@ -22,10 +22,10 @@ const Experience = () => {
     const Bullet = ({children}: { children: ReactNode }) => (
         <li className="flex gap-3 items-start">
             <span
-                className="flex-shrink-0 mt-[9px] w-1.5 h-1.5 rounded-full"
-                style={{backgroundColor: "var(--pp-blue)"}}
+                className="flex-shrink-0 mt-[9px] w-1.5 h-1.5"
+                style={{backgroundColor: "var(--dev-accent)"}}
             />
-            <span style={{color: "var(--pp-body)", fontSize: "16px", lineHeight: 1.7}}>
+            <span style={{color: "var(--dev-body)", fontSize: "15px", lineHeight: 1.7, textAlign: "justify"}}>
                 {children}
             </span>
         </li>
@@ -37,10 +37,13 @@ const Experience = () => {
             className="px-5 md:px-10 py-12 md:py-16"
             style={{scrollMarginTop: "80px"}}
         >
+            {/* Eyebrow */}
+            <p className="dev-label mb-3">// experience</p>
+
             {/* Heading */}
             <h2
                 className="mb-8"
-                style={{color: "var(--pp-text)", fontSize: "clamp(28px, 4vw, 38px)", fontWeight: 800}}
+                style={{color: "var(--dev-text)", fontSize: "clamp(22px, 3vw, 28px)", fontWeight: 700}}
             >
                 Professional Experience
             </h2>
@@ -48,31 +51,30 @@ const Experience = () => {
             <div className="space-y-5">
 
                 {/* Full-time entry */}
-                <div className="pp-card" style={{padding: "28px"}}>
+                <div className="dev-card" style={{padding: "28px"}}>
                     {/* Role + company */}
                     <div className="flex flex-wrap items-baseline gap-x-3 mb-1">
-                        <h3 style={{color: "var(--pp-text)", fontSize: "20px", fontWeight: 700}}>
+                        <h3 style={{color: "var(--dev-text)", fontSize: "20px", fontWeight: 700}}>
                             Software Engineer
                         </h3>
-                        <span style={{color: "var(--pp-blue)", fontSize: "16px", fontWeight: 600}}>
+                        <span style={{color: "var(--dev-accent)", fontSize: "16px", fontWeight: 600}}>
                             Maya Data Privacy
                         </span>
                     </div>
 
                     {/* Clarification line */}
-                    <p className="italic mb-3" style={{color: "var(--pp-muted)", fontSize: "14px"}}>
+                    <p className="italic mb-3" style={{color: "var(--dev-muted)", fontSize: "14px"}}>
                         Three roles at once · Developer · Scrum Master · Tester
                     </p>
 
-                    <p className="mb-4" style={{color: "var(--pp-muted)", fontSize: "14px", fontWeight: 600}}>
+                    <p className="dev-label mb-4">
                         Jan 2024 – Present
                     </p>
 
                     {/* Badges */}
                     <div className="flex flex-wrap gap-2 mb-6">
                         {["Software Engineer", "Scrum Master", "Tester"].map(badge => (
-                            <span key={badge} className="pp-chip pp-chip-blue"
-                                  style={{fontSize: "13px", padding: "6px 14px"}}>
+                            <span key={badge} className="dev-tag dev-tag-accent">
                                 {badge}
                             </span>
                         ))}
@@ -87,21 +89,21 @@ const Experience = () => {
                 </div>
 
                 {/* Intern entry */}
-                <div className="pp-card" style={{padding: "28px"}}>
+                <div className="dev-card" style={{padding: "28px"}}>
                     <div className="flex flex-wrap items-baseline gap-x-3 mb-1">
-                        <h3 style={{color: "var(--pp-text)", fontSize: "20px", fontWeight: 700}}>
+                        <h3 style={{color: "var(--dev-text)", fontSize: "20px", fontWeight: 700}}>
                             Software Engineer Intern
                         </h3>
-                        <span style={{color: "var(--pp-blue)", fontSize: "15px", fontWeight: 600}}>
+                        <span style={{color: "var(--dev-accent)", fontSize: "15px", fontWeight: 600}}>
                             Maya Data Privacy
                         </span>
                     </div>
 
-                    <p className="italic mb-3" style={{color: "var(--pp-muted)", fontSize: "14px"}}>
+                    <p className="italic mb-3" style={{color: "var(--dev-muted)", fontSize: "14px"}}>
                         Converted to full-time
                     </p>
 
-                    <p className="mb-5" style={{color: "var(--pp-muted)", fontSize: "14px", fontWeight: 600}}>
+                    <p className="dev-label mb-5">
                         Dec 2023
                     </p>
 

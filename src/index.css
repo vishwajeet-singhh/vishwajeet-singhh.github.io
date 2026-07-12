@@ -1,64 +1,67 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* PayPal-style fintech dashboard design system. Light mode only. */
+/* Technical-paper design system. Light mode only. */
 
 @layer base {
     :root {
-        /* ── PayPal-inspired raw tokens ─────────────────────────── */
-        --pp-bg: #F7F9FC;            /* page background, light blue-gray */
-        --pp-card: #FFFFFF;          /* card / sidebar / topbar background */
-        --pp-nav-active-bg: #E8F2FF; /* active nav item highlight */
-        --pp-text: #0A0A0A;          /* near-black headings */
-        --pp-body: #2C2E2F;          /* body text */
-        --pp-muted: #6C7378;         /* muted labels, secondary text */
-        --pp-blue: #0070E0;          /* PayPal blue — links & accents */
-        --pp-blue-dark: #003087;     /* link hover */
-        --pp-black: #000000;         /* primary buttons */
-        --pp-border: #EAECEF;        /* hairline borders */
-        --pp-green: #1C7C54;         /* available-for-projects dot */
+        /* ── Raw tokens ──────────────────────────────────────────── */
+        --dev-bg: #FBFCFD;           /* page background */
+        --dev-card: #FFFFFF;         /* card / sidebar / topbar background */
+        --dev-text: #16243D;         /* heading text — navy */
+        --dev-body: #3D4A5C;         /* body text — navy-tinted gray */
+        --dev-muted: #6A737D;        /* muted labels, secondary text */
+        --dev-accent: #1F6FEB;       /* interactive accent — links, buttons, active nav, prompt */
+        --dev-accent-hover: #1558B0; /* link / button hover */
+        --dev-warm: #D97706;         /* warm accent — status badges, small highlights */
+        --dev-warm-bg: #FEF3E2;      /* warm accent background tint */
+        --dev-border: #E1E4E8;       /* hairline borders */
+        --dev-border-strong: #D0D7DE;/* secondary button / tag borders */
+        --dev-tag-bg: #F6F8FA;       /* skill tag background */
 
-        --pp-soft-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        --dev-soft-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 
-        /* ── Tailwind HSL tokens remapped to the PayPal palette ──── */
-        --background: 216 38% 98%;       /* #F7F9FC */
-        --foreground: 0 0% 4%;           /* #0A0A0A */
+        /* ── Tailwind HSL tokens remapped to the technical-paper palette ── */
+        --background: 210 33% 99%;       /* #FBFCFD */
+        --foreground: 218 47% 16%;       /* #16243D */
 
         --card: 0 0% 100%;
-        --card-foreground: 0 0% 4%;
+        --card-foreground: 218 47% 16%;
 
         --popover: 0 0% 100%;
-        --popover-foreground: 0 0% 4%;
+        --popover-foreground: 218 47% 16%;
 
-        /* Primary — PayPal Blue */
-        --primary: 209 100% 44%;         /* #0070E0 */
+        /* Primary — accent blue */
+        --primary: 216 84% 52%;          /* #1F6FEB */
         --primary-foreground: 0 0% 100%;
-        --primary-light: 209 100% 95%;   /* #E8F2FF */
-        --primary-dark: 217 100% 27%;    /* #003087 */
+        --primary-light: 210 29% 97%;    /* #F6F8FA */
+        --primary-dark: 214 79% 39%;     /* #1558B0 */
 
-        /* Secondary — soft chip gray */
-        --secondary: 216 33% 96%;        /* #F2F4F7-ish */
-        --secondary-foreground: 200 4% 18%;
+        /* Secondary — neutral gray */
+        --secondary: 210 29% 97%;        /* #F6F8FA */
+        --secondary-foreground: 215 20% 30%; /* #3D4A5C */
 
         /* Muted — soft neutrals */
-        --muted: 210 24% 96%;
-        --muted-foreground: 206 6% 45%;  /* #6C7378 */
+        --muted: 210 29% 97%;
+        --muted-foreground: 212 8% 45%;  /* #6A737D */
 
-        /* Accent — PayPal Blue tint */
-        --accent: 209 100% 95%;          /* #E8F2FF */
-        --accent-foreground: 209 100% 44%;
+        /* Accent — kept neutral, not blue-tinted */
+        --accent: 210 29% 97%;           /* #F6F8FA */
+        --accent-foreground: 218 47% 16%;    /* #16243D */
+
+        /* Warm — status badges, small highlights */
+        --warm: 32 95% 44%;              /* #D97706 */
+        --warm-foreground: 0 0% 100%;
 
         --destructive: 0 84.2% 60.2%;
         --destructive-foreground: 0 0% 100%;
 
-        --border: 213 19% 92%;           /* #EAECEF */
-        --input: 213 19% 92%;
-        --ring: 209 100% 44%;
+        --border: 214 13% 90%;           /* #E1E4E8 */
+        --input: 214 13% 90%;
+        --ring: 216 84% 52%;
 
-        --radius: 1rem;
+        --radius: 6px;
 
         /* Transitions */
         --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
@@ -72,14 +75,14 @@
 
     body {
         @apply bg-background text-foreground antialiased;
-        font-family: 'Plus Jakarta Sans', 'Manrope', 'Inter', system-ui, sans-serif;
+        font-family: 'JetBrains Mono', monospace;
     }
 
     html {
         scroll-behavior: smooth;
     }
 
-    /* Custom scrollbar — PayPal-blue tinted */
+    /* Custom scrollbar — neutral gray, no blue tint */
     ::-webkit-scrollbar {
         width: 8px;
     }
@@ -89,11 +92,17 @@
     }
 
     ::-webkit-scrollbar-thumb {
-        @apply bg-primary/15 rounded-full;
+        background: var(--dev-border-strong);
+        border-radius: 4px;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-        @apply bg-primary/25;
+        background: var(--dev-muted);
+    }
+
+    ::selection {
+        background: var(--dev-border-strong);
+        color: var(--dev-text);
     }
 }
 
@@ -114,95 +123,107 @@
         transition: var(--transition-fast);
     }
 
-    /* ── Reusable PayPal-style components ─────────────────────── */
+    /* ── Reusable technical-paper components ────────────────────── */
 
-    /* Fully rounded pill — primary (black) */
-    .pp-btn-primary {
+    /* Squared primary button */
+    .dev-btn-primary {
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
-        background: var(--pp-black);
+        background: var(--dev-accent);
         color: #fff;
-        border: none;
-        border-radius: 9999px;
-        padding: 14px 30px;
+        border: 1px solid var(--dev-accent);
+        border-radius: 6px;
+        padding: 12px 22px;
         font-weight: 600;
-        font-size: 16px;
+        font-size: 15px;
         line-height: 1;
         text-decoration: none;
         cursor: pointer;
         transition: background 0.15s ease;
     }
 
-    .pp-btn-primary:hover {
-        background: var(--pp-body);
+    .dev-btn-primary:hover {
+        background: var(--dev-accent-hover);
+        border-color: var(--dev-accent-hover);
     }
 
-    /* Fully rounded pill — secondary (outlined) */
-    .pp-btn-secondary {
+    /* Squared secondary button — outlined */
+    .dev-btn-secondary {
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
         background: #fff;
-        color: var(--pp-text);
-        border: 1.5px solid var(--pp-text);
-        border-radius: 9999px;
-        padding: 13px 28px;
+        color: var(--dev-text);
+        border: 1px solid var(--dev-border-strong);
+        border-radius: 6px;
+        padding: 11px 21px;
         font-weight: 600;
-        font-size: 16px;
+        font-size: 15px;
         line-height: 1;
         text-decoration: none;
         cursor: pointer;
-        transition: background 0.15s ease;
+        transition: background 0.15s ease, border-color 0.15s ease;
     }
 
-    .pp-btn-secondary:hover {
-        background: #F2F4F7;
+    .dev-btn-secondary:hover {
+        background: var(--dev-tag-bg);
+        border-color: var(--dev-muted);
     }
 
     /* Text link */
-    .pp-link {
-        color: var(--pp-blue);
+    .dev-link {
+        color: var(--dev-accent);
         font-weight: 500;
         text-decoration: none;
         transition: color 0.15s ease;
     }
 
-    .pp-link:hover {
-        color: var(--pp-blue-dark);
+    .dev-link:hover {
+        color: var(--dev-accent-hover);
         text-decoration: underline;
     }
 
-    /* White soft card with hairline border */
-    .pp-card {
+    /* White card with hairline border */
+    .dev-card {
         background: #fff;
-        border: 1px solid var(--pp-border);
-        border-radius: 16px;
+        border: 1px solid var(--dev-border);
+        border-radius: 6px;
         padding: 24px;
-        transition: box-shadow 0.15s ease;
+        transition: box-shadow 0.15s ease, border-color 0.15s ease;
     }
 
-    .pp-card:hover {
-        box-shadow: var(--pp-soft-shadow);
+    .dev-card:hover {
+        box-shadow: var(--dev-soft-shadow);
+        border-color: var(--dev-border-strong);
     }
 
-    /* Pill chip / badge */
-    .pp-chip {
+    /* Square mono tag / chip */
+    .dev-tag {
         display: inline-flex;
         align-items: center;
-        background: #F2F4F7;
-        color: var(--pp-body);
-        border: 1px solid var(--pp-border);
-        border-radius: 9999px;
-        padding: 8px 18px;
-        font-size: 14px;
+        background: var(--dev-tag-bg);
+        color: var(--dev-body);
+        border: 1px solid var(--dev-border-strong);
+        border-radius: 4px;
+        padding: 5px 10px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
         font-weight: 500;
         line-height: 1.2;
     }
 
-    .pp-chip-blue {
-        background: var(--pp-nav-active-bg);
-        color: var(--pp-blue);
-        border-color: var(--pp-nav-active-bg);
+    .dev-tag-accent {
+        background: #fff;
+        color: var(--dev-accent);
+        border-color: var(--dev-accent);
+    }
+
+    /* Code-comment style section label */
+    .dev-label {
+        font-family: 'JetBrains Mono', monospace;
+        color: var(--dev-muted);
+        font-size: 13px;
+        font-weight: 500;
     }
 }

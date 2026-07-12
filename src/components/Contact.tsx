@@ -36,17 +36,12 @@ const Contact = () => {
         >
             <div className="flex flex-col items-center text-center mx-auto" style={{maxWidth: "720px"}}>
                 {/* Eyebrow */}
-                <p
-                    className="uppercase tracking-widest mb-4"
-                    style={{color: "var(--pp-muted)", fontSize: "13px", fontWeight: 600}}
-                >
-                    Contact
-                </p>
+                <p className="dev-label mb-4">// contact</p>
 
                 {/* Heading */}
                 <h2
                     className="mb-4"
-                    style={{color: "var(--pp-text)", fontSize: "clamp(28px, 4vw, 38px)", fontWeight: 800}}
+                    style={{color: "var(--dev-text)", fontSize: "clamp(22px, 3vw, 28px)", fontWeight: 700}}
                 >
                     Let's Build Something.
                 </h2>
@@ -56,16 +51,11 @@ const Contact = () => {
                         lang="en"
                         className="mb-6"
                         style={{
-
-
-                            color: "var(--pp-muted)",
+                            color: "var(--dev-muted)",
                             fontSize: "16px",
                             lineHeight: 1.50,
-                            textAlign: "justify",
+                            textAlign: "center",
                             maxWidth: "480px",
-                            hyphens: "auto",
-                            WebkitHyphens: "auto",
-                            msHyphens: "auto",
                         }}
                     >
 
@@ -78,14 +68,21 @@ const Contact = () => {
                     <span className="relative flex h-2.5 w-2.5">
                         <span
                             className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60"
-                            style={{backgroundColor: "var(--pp-green)"}}
+                            style={{backgroundColor: "var(--dev-accent)"}}
                         />
                         <span
                             className="relative inline-flex h-2.5 w-2.5 rounded-full"
-                            style={{backgroundColor: "var(--pp-green)"}}
+                            style={{backgroundColor: "var(--dev-accent)"}}
                         />
                     </span>
-                    <span className="text-sm font-semibold" style={{color: "var(--pp-green)"}}>
+                    <span
+                        style={{
+                            color: "var(--dev-accent)",
+                            fontFamily: "'JetBrains Mono', monospace",
+                            fontSize: "13.5px",
+                            fontWeight: 600,
+                        }}
+                    >
                         Available for Projects
                     </span>
                 </div>
@@ -101,7 +98,7 @@ const Contact = () => {
                             href={item.href}
                             target={item.href.startsWith("http") ? "_blank" : undefined}
                             rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                            className="pp-card flex items-center gap-3"
+                            className="dev-card flex items-center gap-3"
                             style={{textDecoration: "none", padding: "18px 20px", minWidth: 0}}
                         >
                             <span
@@ -109,21 +106,20 @@ const Contact = () => {
                                 style={{
                                     width: "40px",
                                     height: "40px",
-                                    borderRadius: "12px",
-                                    backgroundColor: "var(--pp-nav-active-bg)",
+                                    borderRadius: "6px",
+                                    border: "1px solid var(--dev-border)",
+                                    backgroundColor: "var(--dev-tag-bg)",
                                 }}
                             >
-                                <item.icon size={18} style={{color: "var(--pp-blue)"}}/>
+                                <item.icon size={18} style={{color: "var(--dev-accent)"}}/>
                             </span>
                             <span className="flex flex-col" style={{minWidth: 0, textAlign: "left"}}>
-                                <span
-                                    style={{color: "var(--pp-muted)", fontSize: "13px", fontWeight: 600}}
-                                >
+                                <span className="dev-label" style={{fontSize: "12px"}}>
                                     {item.label}
                                 </span>
                                 <span
                                     style={{
-                                        color: "var(--pp-text)",
+                                        color: "var(--dev-text)",
                                         fontSize: "14px",
                                         fontWeight: 600,
                                         overflowWrap: "anywhere",

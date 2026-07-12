@@ -1,4 +1,5 @@
 import {ArrowRight, Download, Github, Globe, Linkedin, Mail} from "lucide-react";
+import TerminalCard from "@/components/TerminalCard";
 import profileImage from "@/assets/profile-dev.png";
 import {RESUME_URL} from "@/lib/resume";
 
@@ -24,32 +25,36 @@ const Hero = () => {
                         <span className="relative flex h-2.5 w-2.5">
                             <span
                                 className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60"
-                                style={{backgroundColor: "var(--pp-green)"}}
+                                style={{backgroundColor: "var(--dev-accent)"}}
                             />
                             <span
                                 className="relative inline-flex h-2.5 w-2.5 rounded-full"
-                                style={{backgroundColor: "var(--pp-green)"}}
+                                style={{backgroundColor: "var(--dev-accent)"}}
                             />
                         </span>
-                        <span className="text-sm font-semibold" style={{color: "var(--pp-green)"}}>
+                        <span
+                            style={{
+                                color: "var(--dev-accent)",
+                                fontFamily: "'JetBrains Mono', monospace",
+                                fontSize: "13.5px",
+                                fontWeight: 600,
+                            }}
+                        >
                            Building&nbsp;&nbsp;Zorqen
                         </span>
                     </div>
 
                     {/* Eyebrow label */}
-                    <p
-                        className="uppercase tracking-widest"
-                        style={{color: "var(--pp-muted)", fontSize: "13px", fontWeight: 600}}
-                    >
-                        Software Engineer · Backend
+                    <p className="dev-label">
+                        // software engineer · backend
                     </p>
 
                     {/* Headline */}
                     <h1
                         style={{
-                            color: "var(--pp-text)",
-                            fontSize: "clamp(22px, 6.5cqi, 52px)",
-                            fontWeight: 800,
+                            color: "var(--dev-text)",
+                            fontSize: "clamp(20px, 5cqi, 40px)",
+                            fontWeight: 700,
                             lineHeight: 1.4,
                             letterSpacing: "-0.02em",
                             textAlign: "left",
@@ -64,20 +69,15 @@ const Hero = () => {
                     <p
                         lang="en"
                         style={{
-                            color: "var(--pp-heading)",
-                            fontSize: "17px",
-                            lineHeight: 1.75,
+                            color: "var(--dev-body)",
+                            fontSize: "15px",
+                            lineHeight: 1.7,
                             textAlign: "justify",
-                            maxWidth: "640px",
-                            hyphens: "auto",
-                            WebkitHyphens: "auto",
-                            msHyphens: "auto",
+                            maxWidth: "600px",
                         }}
                     >
-                        Software Engineer with 2.5+ years building fault-tolerant{" "}
-                        <span style={{ hyphens: "none", WebkitHyphens: "none", msHyphens: "none" }}>distributed</span>{" "}
-                        systems, identity and security infrastructure, and{" "}
-                        <span style={{ hyphens: "none", WebkitHyphens: "none", msHyphens: "none" }}>microservices</span>{" "}
+                        Software Engineer with 2.5+ years building fault-tolerant distributed
+                        systems, identity and security infrastructure, and microservices
                         at scale (Java, Spring Boot, Kafka, PostgreSQL, Oracle). Built and open-sourced an
                         AI-powered PR-review tool that cut review time in half, and pairs hands-on engineering
                         with Scrum Master leadership across cross-functional teams.
@@ -85,7 +85,7 @@ const Hero = () => {
 
                     {/* CTAs */}
                     <div className="flex flex-wrap gap-3 pt-1">
-                        <button onClick={() => scrollToSection("experience")} className="pp-btn-primary">
+                        <button onClick={() => scrollToSection("experience")} className="dev-btn-primary">
                             See My Work
                             <ArrowRight size={17}/>
                         </button>
@@ -94,7 +94,7 @@ const Hero = () => {
                             href={RESUME_URL}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="pp-btn-secondary"
+                            className="dev-btn-secondary"
                         >
                             <Download size={17}/>
                             Download Resume
@@ -104,7 +104,7 @@ const Hero = () => {
                     {/* Social links */}
                     <div className="flex items-center gap-5 pt-2">
                         {[
-                            {href: "https://github.com/vishwajeet-singhh", icon: Github, label: "GitHub"},
+                            {href: "https://github.com/vishy-singh", icon: Github, label: "GitHub"},
                             {href: "https://www.linkedin.com/in/vishyysingh/", icon: Linkedin, label: "LinkedIn"},
                             {href: "mailto:vishy.devv@gmail.com", icon: Mail, label: "Email"},
                             {href: "https://vishwajeet.me", icon: Globe, label: "Website"},
@@ -115,13 +115,13 @@ const Hero = () => {
                                 target={href.startsWith("http") ? "_blank" : undefined}
                                 rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
                                 className="transition-colors duration-150"
-                                style={{color: "var(--pp-muted)"}}
+                                style={{color: "var(--dev-muted)"}}
                                 title={label}
                                 onMouseEnter={e => {
-                                    (e.currentTarget as HTMLAnchorElement).style.color = "var(--pp-blue)";
+                                    (e.currentTarget as HTMLAnchorElement).style.color = "var(--dev-accent)";
                                 }}
                                 onMouseLeave={e => {
-                                    (e.currentTarget as HTMLAnchorElement).style.color = "var(--pp-muted)";
+                                    (e.currentTarget as HTMLAnchorElement).style.color = "var(--dev-muted)";
                                 }}
                             >
                                 <Icon size={20}/>
@@ -130,22 +130,33 @@ const Hero = () => {
                     </div>
                 </div>
 
-                {/* Right: Profile image */}
-                <div className="flex justify-center lg:justify-end">
+                {/* Right: Photo + Terminal */}
+                <div className="flex flex-col items-center gap-4 w-full mx-auto" style={{maxWidth: "320px"}}>
                     <div
-                        className="w-64 h-64 md:w-[340px] md:h-[340px] overflow-hidden"
+                        className="flex flex-col items-center w-full"
                         style={{
-                            borderRadius: "20px",
-                            border: "1px solid var(--pp-border)",
-                            backgroundColor: "var(--pp-card)",
+                            padding: "8px",
+                            borderRadius: "6px",
+                            border: "1px solid var(--dev-border)",
+                            backgroundColor: "var(--dev-card)",
                         }}
                     >
-                        <img
-                            src={profileImage}
-                            alt="Vishwajeet Pratap Singh"
-                            className="w-full h-full object-cover object-center scale-[1.05] brightness-[1.075]"
-                        />
+                        <div className="w-full aspect-square overflow-hidden rounded">
+                            <img
+                                src={profileImage}
+                                alt="Vishwajeet Pratap Singh"
+                                className="w-full h-full object-cover object-[50%_38%]"
+                                style={{transform: "scale(1.06)"}}
+                            />
+                        </div>
+                        <span
+                            className="dev-label"
+                            style={{fontSize: "11px", marginTop: "6px"}}
+                        >
+                            profile.jpg
+                        </span>
                     </div>
+                    <TerminalCard/>
                 </div>
 
             </div>
