@@ -9,12 +9,9 @@ const TerminalCard = () => {
 
     return (
         <div
-            className="w-full overflow-hidden"
+            className="terminal-card w-full overflow-hidden"
             style={{
                 maxWidth: "320px",
-                borderRadius: "6px",
-                border: "1px solid var(--dev-border)",
-                backgroundColor: "var(--dev-card)",
             }}
         >
             {/* Title bar */}
@@ -22,8 +19,6 @@ const TerminalCard = () => {
                 className="flex items-center gap-2"
                 style={{
                     padding: "9px 12px",
-                    borderBottom: "1px solid var(--dev-border)",
-                    backgroundColor: "var(--dev-tag-bg)",
                 }}
             >
                 <div className="flex items-center gap-1.5">

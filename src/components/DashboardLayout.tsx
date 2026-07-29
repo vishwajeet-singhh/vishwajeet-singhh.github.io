@@ -29,11 +29,10 @@ const navItems = [
 
 const Avatar = ({size = 40}: { size?: number }) => (
     <div
-        className="flex items-center justify-center rounded-full flex-shrink-0"
+        className="profile-avatar flex items-center justify-center rounded-full flex-shrink-0"
         style={{
             width: size,
             height: size,
-            backgroundColor: "var(--dev-accent)",
             color: "#fff",
             fontFamily: "'JetBrains Mono', monospace",
             fontWeight: 700,
@@ -71,6 +70,43 @@ const DashboardLayout = ({children}: { children: ReactNode }) => {
         return () => observer.disconnect();
     }, []);
 
+    useEffect(() => {
+        if (!window.matchMedia("(pointer: fine)").matches) return;
+
+        const root = document.documentElement;
+        let frame: number | null = null;
+        let x = -200;
+        let y = -200;
+
+        const updateGlowPosition = () => {
+            root.style.setProperty("--cursor-x", `${x}px`);
+            root.style.setProperty("--cursor-y", `${y}px`);
+            root.style.setProperty("--cursor-glow-opacity", "1");
+            frame = null;
+        };
+
+        const handlePointerMove = (event: PointerEvent) => {
+            if (event.pointerType !== "mouse") return;
+            x = event.clientX;
+            y = event.clientY;
+            if (frame === null) frame = window.requestAnimationFrame(updateGlowPosition);
+        };
+
+        const hideGlow = () => root.style.setProperty("--cursor-glow-opacity", "0");
+
+        window.addEventListener("pointermove", handlePointerMove, {passive: true});
+        window.addEventListener("blur", hideGlow);
+
+        return () => {
+            if (frame !== null) window.cancelAnimationFrame(frame);
+            window.removeEventListener("pointermove", handlePointerMove);
+            window.removeEventListener("blur", hideGlow);
+            root.style.removeProperty("--cursor-x");
+            root.style.removeProperty("--cursor-y");
+            root.style.removeProperty("--cursor-glow-opacity");
+        };
+    }, []);
+
     const scrollToSection = (id: string) => {
         const el = document.getElementById(id);
         if (el) {
@@ -92,7 +128,7 @@ const DashboardLayout = ({children}: { children: ReactNode }) => {
                     <button
                         key={item.id}
                         onClick={() => scrollToSection(item.id)}
-                        className="flex items-center gap-3 w-full text-left transition-colors duration-150"
+                        className={`portfolio-nav-link flex items-center gap-3 w-full text-left transition-colors duration-150 ${isActive ? "is-active" : ""}`}
                         style={{
                             padding: "9px 14px 9px 12px",
                             borderRadius: "4px",
@@ -174,14 +210,13 @@ const DashboardLayout = ({children}: { children: ReactNode }) => {
     );
 
     return (
-        <div style={{backgroundColor: "var(--dev-bg)", minHeight: "100vh"}}>
+        <div className="portfolio-shell">
+            <div className="cursor-glow" aria-hidden="true"/>
             {/* ── Desktop sidebar ─────────────────────────────── */}
             <aside
-                className="hidden lg:flex flex-col fixed top-0 left-0 bottom-0 z-40"
+                className="portfolio-sidebar hidden lg:flex flex-col fixed top-0 left-0 bottom-0 z-40"
                 style={{
-                    width: "280px",
-                    backgroundColor: "var(--dev-card)",
-                    borderRight: "1px solid var(--dev-border)",
+                    width: "292px",
                     padding: "24px 16px",
                     overflowY: "auto",
                 }}
@@ -193,16 +228,14 @@ const DashboardLayout = ({children}: { children: ReactNode }) => {
             {isDrawerOpen && (
                 <div className="lg:hidden">
                     <div
-                        className="fixed inset-0 z-40"
+                        className="portfolio-drawer-overlay fixed inset-0 z-40"
                         style={{backgroundColor: "rgba(10,10,10,0.4)"}}
                         onClick={() => setIsDrawerOpen(false)}
                     />
                     <aside
-                        className="fixed top-0 left-0 bottom-0 z-50 flex flex-col"
+                        className="portfolio-mobile-drawer fixed top-0 left-0 bottom-0 z-50 flex flex-col"
                         style={{
                             width: "260px",
-                            backgroundColor: "var(--dev-card)",
-                            borderRight: "1px solid var(--dev-border)",
                             padding: "24px 16px",
                             overflowY: "auto",
                         }}
@@ -221,14 +254,12 @@ const DashboardLayout = ({children}: { children: ReactNode }) => {
             )}
 
             {/* ── Main column ─────────────────────────────────── */}
-            <div className="lg:ml-[280px]">
+            <div className="portfolio-content lg:ml-[292px]">
                 {/* Top bar */}
                 <header
-                    className="sticky top-0 z-30 flex items-center justify-between"
+                    className="portfolio-topbar sticky top-0 z-30 flex items-center justify-between"
                     style={{
-                        height: "64px",
-                        backgroundColor: "var(--dev-card)",
-                        borderBottom: "1px solid var(--dev-border)",
+                        height: "72px",
                         padding: "0 20px",
                     }}
                 >
@@ -272,8 +303,8 @@ const DashboardLayout = ({children}: { children: ReactNode }) => {
 
                 {/* Content */}
                 <main
-                    className="mx-auto"
-                    style={{maxWidth: "980px", width: "100%"}}
+                    className="portfolio-main mx-auto"
+                    style={{maxWidth: "1060px", width: "100%"}}
                 >
                     {children}
                 </main>

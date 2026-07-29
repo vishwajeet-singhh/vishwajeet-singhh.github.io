@@ -54,7 +54,7 @@ const Projects = () => {
             </h2>
 
             {/* Featured card */}
-            <div className="dev-card" style={{padding: "28px"}}>
+            <div className="dev-card project-card" style={{padding: "28px"}}>
                 {/* Title row */}
                 <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
                     <div className="flex items-center gap-3">
@@ -123,15 +123,16 @@ const Projects = () => {
                 </div>
 
                 {/* Description */}
+
                 <p
                     className="mb-6"
                     style={{color: "var(--dev-body)", fontSize: "15px", lineHeight: 1.7, textAlign: "justify"}}
                 >
-                    Built and open-sourced a self-hosted AI pull-request review tool, shipped as a
-                    public Docker image so any team can pull, deploy on their own infra, and connect
-                    their GitHub org with zero vendor lock-in or per-seat licensing. It automates
-                    GitHub PR reviews - cutting review time by 50% while catching issues that are
-                    difficult or impossible for a human reviewer to consistently spot.
+                    Built and open-sourced Helix, a self-hosted AI pull-request review platform distributed as a public
+                    Docker image. Teams can deploy it entirely within their own infrastructure, connect their GitHub
+                    organisation, and retain complete code provenance without vendor lock-in. Helix performs
+                    deterministic automated PR analysis before human review, eliminating repetitive feedback, surfacing
+                    subtle correctness issues, and reducing review turnaround by roughly 50%.
                 </p>
 
                 {/* Stack chips */}
