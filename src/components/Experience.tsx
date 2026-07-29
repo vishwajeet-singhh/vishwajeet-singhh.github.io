@@ -1,23 +1,37 @@
 import {ReactNode} from "react";
 
 const Experience = () => {
-    const fullTimeAchievements = [
-        "Work as core developer and Scrum Master on a ~20-person product team spanning UI, AI, Backend, Product, and Testing - owning feature delivery as the team's core developer just two years into my career.",
-        "Designed and shipped a production Identity and Access Management (IAM) system from scratch as the sole engineer on it - auth flows, JWT, RBAC, MFA, OAuth2, and group-based access control - now securing 500+ SaaS users, with the same build running on-premises for B2B tenants. Also built the licensing system for those on-prem installs.",
-        "Built and own two backend microservices as sole engineer - a licensing service powering on-prem/B2B installs and a shared utilities service - designing, shipping, and operating them end to end.",
-        "Shipped core features into a two-service Spring Boot backend (Kafka, Redis) running the data-processing pipeline - a client-facing REST API service and an internal Kafka-consumer execution engine - with tenant-configurable APIs, cross-database SQL handling, and concurrency-safe Spring Batch processing, covered by JUnit and Testcontainers tests.",
-        "Cut a 48–60 hr workflow pipeline to ~2–3 hr on 100k-table datasets via database-layer predicate pushdown, tuned batch concurrency, and HikariCP pool sizing exposed as per-deployment config so each tenant tunes to its own database limits.",
-        "Added crash-safe recovery to long-running bulk operations across PostgreSQL, Oracle, and SAP HANA using a journaling pattern, keeping data consistent through mid-run failures.",
-        "Cut bulk-insert time ~50% by disabling database triggers during high-volume writes, then restoring integrity after load.",
-        "Shipped bulk edit/delete for large data tables - snapshotting matched rows up front so edits can't shift pagination mid-run, with capped batch loops and composite-key dedup to stop rows being skipped or processed twice.",
-        "Containerised services with Docker and reworked GitHub Actions CI/CD pipelines during the company's AWS-to-GCP migration, managing secrets and connectivity across environments.",
-        "Rolled out Helix, my open-source AI code-review tool, across the team's GitHub org - it auto-catches style and correctness issues at PR open so developers self-correct before human review and seniors focus only on logic and flow, cutting review turnaround roughly in half.",
-    ];
+ const fullTimeAchievements = [
 
-    const internAchievements = [
-        "Built a Python-based data classification utility that samples field values and applies configurable detection logic to identify sensitive data types at scale, powering automated data profiling.",
-        "Implemented group-based access control logic to enforce data consistency boundaries across multi-tenant workflows, hardening the authorisation model ahead of production rollout.",
-    ];
+    "Entrusted as a core engineer and Scrum Master within a ~20-person product organisation spanning Backend, AI, UI, QA, and Product—coordinating delivery while owning business-critical engineering initiatives barely two years into my career.",
+
+    "Conceived, architected, and delivered the company's entire Identity & Access Management substrate as its sole engineer—JWT, RBAC, MFA, OAuth2, tenant isolation, and group-scoped authorisation—now securing 500+ SaaS users alongside on-premises B2B deployments. Also engineered the licensing platform governing every customer installation.",
+
+    "Solely architected, implemented, and continue to steward two production microservices—a licensing platform underpinning enterprise deployments and a shared utilities service consumed across products.",
+
+    "Delivered core capabilities across a dual-service Spring Boot architecture comprising externally facing REST APIs and an internal Kafka execution engine, introducing tenant-configurable APIs, cross-database SQL compatibility, concurrency-safe Spring Batch orchestration, and comprehensive JUnit/Testcontainers validation.",
+
+    "Compressed a 48–60 hour production workflow into approximately 2–3 hours by introducing predicate pushdown, calibrated concurrency, and deployment-specific HikariCP tuning adaptable to each customer's database characteristics.",
+
+    "Engineered crash-resilient recovery semantics for long-running operations spanning PostgreSQL, Oracle, and SAP HANA through journal-based execution provenance, preserving transactional integrity across mid-process failures.",
+
+    "Halved high-volume ingestion latency by strategically suspending database triggers during bulk writes before deterministic integrity restoration.",
+
+    "Designed bulk edit and deletion workflows resilient to mutable datasets by snapshotting candidate records, eliminating pagination drift, bounding execution windows, and reconciling duplicate composite keys before mutation.",
+
+    "Containerised production services with Docker while modernising GitHub Actions delivery pipelines throughout the organisation's AWS-to-GCP migration, governing secrets, deployment automation, and cross-environment parity.",
+
+    "Created and deployed Helix, an open-source AI pull-request review platform adopted across the engineering organisation, enabling deterministic pre-review analysis that removes repetitive review overhead and reduced overall review turnaround by approximately 50%."
+
+];
+
+const internAchievements = [
+
+    "Developed a Python-driven sensitive-data classification engine that sampled field provenance and applied configurable detection heuristics to automate large-scale data profiling.",
+
+    "Implemented tenant-aware group authorisation semantics that reinforced isolation guarantees and strengthened the platform's access-control model before production rollout.",
+
+];
 
     const Bullet = ({children}: { children: ReactNode }) => (
         <li className="flex gap-3 items-start">

@@ -12,7 +12,7 @@ const Hero = () => {
     return (
         <section
             id="home"
-            className="px-5 md:px-10 pt-12 pb-16 md:pt-16 md:pb-20"
+            className="hero-section px-5 md:px-10 pt-12 pb-16 md:pt-16 md:pb-20"
             style={{scrollMarginTop: "80px"}}
         >
             <div className="grid lg:grid-cols-[1.4fr_1fr] gap-10 lg:gap-14 items-center">
@@ -51,6 +51,7 @@ const Hero = () => {
 
                     {/* Headline */}
                     <h1
+                        className="hero-title"
                         style={{
                             color: "var(--dev-text)",
                             fontSize: "clamp(20px, 5cqi, 40px)",
@@ -68,6 +69,7 @@ const Hero = () => {
                     {/* Subtext */}
                     <p
                         lang="en"
+                        className="hero-copy"
                         style={{
                             color: "var(--dev-body)",
                             fontSize: "15px",
@@ -76,11 +78,11 @@ const Hero = () => {
                             maxWidth: "600px",
                         }}
                     >
-                        Software Engineer with 2.5+ years building fault-tolerant distributed
-                        systems, identity and security infrastructure, and microservices
-                        at scale (Java, Spring Boot, Kafka, PostgreSQL, Oracle). Built and open-sourced an
-                        AI-powered PR-review tool that cut review time in half, and pairs hands-on engineering
-                        with Scrum Master leadership across cross-functional teams.
+                        Correctness is axiomatic, not aspirational - that's the standard I hold licensing platforms and
+                        distributed data infrastructure to. Cloud-native Spring Boot/Kafka systems spanning PostgreSQL,
+                        Oracle, and SAP HANA. Sole architect of a 500+ user IAM substrate; recovered a 48-hour
+                        production workflow to ~3 hours. Creator of Helix (open-source AI PR reviewer). Also wear the
+                        Scrum Master hat for a 20-person team.
                     </p>
 
                     {/* CTAs */}
@@ -133,12 +135,9 @@ const Hero = () => {
                 {/* Right: Photo + Terminal */}
                 <div className="flex flex-col items-center gap-4 w-full mx-auto" style={{maxWidth: "320px"}}>
                     <div
-                        className="flex flex-col items-center w-full"
+                        className="hero-profile-card flex flex-col items-center w-full"
                         style={{
                             padding: "8px",
-                            borderRadius: "6px",
-                            border: "1px solid var(--dev-border)",
-                            backgroundColor: "var(--dev-card)",
                         }}
                     >
                         <div className="w-full aspect-square overflow-hidden rounded">
