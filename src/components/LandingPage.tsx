@@ -9,7 +9,9 @@ const LandingPage = () => (
         <div className="landing-spark landing-spark-one" aria-hidden="true"/>
         <div className="landing-spark landing-spark-two" aria-hidden="true"/>
         <section className="landing-card" aria-labelledby="landing-title">
-            <p className="landing-status"><span aria-hidden="true"/>In the works</p>
+            <p className="landing-status" style={{textTransform: "none"}}>
+                <span aria-hidden="true"/>Inchoate
+            </p>
             <div className="landing-photo-frame">
                 <img
                     className="landing-photo"
@@ -20,28 +22,31 @@ const LandingPage = () => (
 
             <div className="landing-intro">
                 <h1 id="landing-title">Vishwajeet Pratap Singh</h1>
-                <p className="landing-role">Software Engineer</p>
-                <p className="landing-tagline">Inquisitive Practitioner of Software Engineering</p>
+                <p className="landing-role py-0.75">Inquisitive Practitioner of Software Engineering</p>
+                <p className="landing-tagline"></p>
             </div>
 
             <div className="landing-message">
-                <h2>Portfolio under development.</h2>
-                <p>Currently rebuilding this site. Until then, you can find me across these profiles.</p>
+                <h2> Intent · Pragmatism · Ingenuity · Meticulousness </h2>
+                <p> Portfolio taking shape. Find the rest of me scattered across the usual haunts below.</p>
             </div>
 
             <nav className="profile-links" aria-label="Vishwajeet Pratap Singh’s profiles and contact links">
                 <div className="profile-group">
-                    <a className="profile-link" href="https://github.com/vishwajeet-singhh" target="_blank" rel="noopener noreferrer">
+                    <a className="profile-link" href="https://github.com/vishwajeet-singhh" target="_blank"
+                       rel="noopener noreferrer">
                         <Github aria-hidden="true" size={18}/><span>GitHub</span>
                     </a>
                 </div>
                 <div className="profile-group">
-                    <a className="profile-link" href="https://www.linkedin.com/in/vishyysingh/" target="_blank" rel="noopener noreferrer">
+                    <a className="profile-link" href="https://www.linkedin.com/in/vishyysingh/" target="_blank"
+                       rel="noopener noreferrer">
                         <Linkedin aria-hidden="true" size={18}/><span>LinkedIn</span>
                     </a>
                 </div>
                 <div className="profile-group profile-group-full">
-                    <a className="profile-link profile-link-featured" href={RESUME_URL} target="_blank" rel="noopener noreferrer">
+                    <a className="profile-link profile-link-featured" href={RESUME_URL} target="_blank"
+                       rel="noopener noreferrer">
                         <FileText aria-hidden="true" size={18}/><span>Resume</span>
                     </a>
                 </div>
