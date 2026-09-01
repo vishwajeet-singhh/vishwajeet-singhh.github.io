@@ -11,8 +11,8 @@ const Contact = () => {
         {
             icon: Mail,
             label: "Email",
-            value: "vishy.devv@gmail.com",
-            href: "mailto:vishy.devv@gmail.com",
+            value: "vishwajeet.sage@gmail.com",
+            href: "mailto:vishwajeet.sage@gmail.com",
         },
         {
             icon: Github,

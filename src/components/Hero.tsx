@@ -108,7 +108,7 @@ const Hero = () => {
                         {[
                             {href: "https://github.com/vishy-singh", icon: Github, label: "GitHub"},
                             {href: "https://www.linkedin.com/in/vishyysingh/", icon: Linkedin, label: "LinkedIn"},
-                            {href: "mailto:vishy.devv@gmail.com", icon: Mail, label: "Email"},
+                            {href: "mailto:vishwajeet.sage@gmail.com", icon: Mail, label: "Email"},
                             {href: "https://vishwajeet.me", icon: Globe, label: "Website"},
                         ].map(({href, icon: Icon, label}) => (
                             <a

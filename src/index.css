@@ -66,8 +66,8 @@
         min-width: 320px;
         font-family: "JetBrains Mono", monospace;
         background-image:
-            radial-gradient(circle at 80% -10%, rgba(37, 99, 235, 0.14), transparent 29rem),
-            radial-gradient(circle at 0% 45%, rgba(14, 165, 233, 0.08), transparent 27rem);
+                radial-gradient(circle at 80% -10%, rgba(37, 99, 235, 0.14), transparent 29rem),
+                radial-gradient(circle at 0% 45%, rgba(14, 165, 233, 0.08), transparent 27rem);
     }
 
     button,
@@ -244,8 +244,8 @@
     position: relative;
     isolation: isolate;
     background-image:
-        linear-gradient(rgba(255, 255, 255, 0.18) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.18) 1px, transparent 1px);
+            linear-gradient(rgba(255, 255, 255, 0.18) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.18) 1px, transparent 1px);
     background-size: 32px 32px;
 }
 
@@ -322,9 +322,14 @@
     border-top: 1px solid rgba(222, 226, 237, 0.8);
 }
 
-/* Distinct landing page — the existing portfolio styles above remain available for the rebuild. */
+/* ============================================================ */
+/* Distinct landing page — the existing portfolio styles above  */
+/* remain available for the rebuild.                            */
+/* ============================================================ */
+
 .landing-page {
     position: relative;
+    isolation: isolate;
     overflow: hidden;
     box-sizing: border-box;
     display: flex;
@@ -336,15 +341,66 @@
     color: #12243f;
     font-family: "Plus Jakarta Sans", "Google Sans", "Google Sans Text", "JetBrains Mono", sans-serif;
     background:
-        radial-gradient(circle at 9% 7%, rgba(95, 177, 224, 0.22), transparent 29rem),
-        radial-gradient(circle at 94% 87%, rgba(91, 126, 211, 0.19), transparent 30rem),
-        linear-gradient(135deg, #f3faff 0%, #f7f9ff 52%, #eef6ff 100%);
+            radial-gradient(circle at 12% 10%, rgba(95, 177, 224, 0.30), transparent 25rem),
+            radial-gradient(circle at 90% 88%, rgba(91, 126, 211, 0.26), transparent 26rem),
+            radial-gradient(circle at 50% 105%, rgba(120, 170, 230, 0.12), transparent 34rem),
+            radial-gradient(circle at 100% 0%, rgba(150, 200, 240, 0.10), transparent 22rem),
+            linear-gradient(135deg, #f3faff 0%, #f7f9ff 52%, #eef6ff 100%);
+    animation: landing-glow-drift 24s ease-in-out infinite alternate;
 }
 
 .landing-page *,
 .landing-page *::before,
 .landing-page *::after {
     box-sizing: border-box;
+}
+
+/* Fine grid texture, masked so it's strongest near the card and
+   fades toward the page edges rather than tiling uniformly. */
+.landing-page::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image:
+            linear-gradient(rgba(41, 92, 136, 0.055) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(41, 92, 136, 0.055) 1px, transparent 1px);
+    background-size: 46px 46px;
+    -webkit-mask-image: radial-gradient(circle at 50% 40%, black 0%, transparent 74%);
+    mask-image: radial-gradient(circle at 50% 40%, black 0%, transparent 74%);
+    pointer-events: none;
+}
+
+/* Faint diagonal sheen, very low opacity — adds a sense of light
+   passing across the page without reading as a visible stripe. */
+.landing-page::after {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    z-index: 0;
+    background: linear-gradient(
+            118deg,
+            transparent 38%,
+            rgba(255, 255, 255, 0.35) 48%,
+            transparent 58%
+    );
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+@keyframes landing-glow-drift {
+    0% {
+        background-position: 0 0, 0 0, 0 0, 0 0, 0 0;
+    }
+    100% {
+        background-position: 2.5% -1.5%, -2.5% 1.5%, 0 -0.5%, -1.5% 1%, 0 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .landing-page {
+        animation: none;
+    }
 }
 
 .landing-card {
@@ -369,7 +425,6 @@
     font-size: 0.73rem;
     font-weight: 700;
     letter-spacing: 0.13em;
-    text-transform: uppercase;
 }
 
 .landing-status span {
@@ -532,28 +587,30 @@
 
 .landing-orbit {
     position: absolute;
-    width: 600px;
-    height: 600px;
-    border: 1px solid rgba(44, 88, 124, 0.12);
+    z-index: 0;
+    width: 560px;
+    height: 560px;
+    border: 1px solid rgba(44, 88, 124, 0.14);
     border-radius: 50%;
     pointer-events: none;
 }
 
 .landing-orbit-one {
-    top: -395px;
-    right: -285px;
+    top: -300px;
+    right: -200px;
 }
 
 .landing-orbit-two {
-    bottom: -470px;
-    left: -350px;
-    width: 680px;
-    height: 680px;
-    border-color: rgba(65, 133, 190, 0.16);
+    bottom: -340px;
+    left: -240px;
+    width: 640px;
+    height: 640px;
+    border-color: rgba(65, 133, 190, 0.18);
 }
 
 .landing-spark {
     position: absolute;
+    z-index: 0;
     width: 10px;
     height: 10px;
     border: 2px solid #529ed1;
@@ -561,13 +618,13 @@
 }
 
 .landing-spark-one {
-    top: 18%;
+    top: 16%;
     left: max(5vw, 28px);
 }
 
 .landing-spark-two {
     right: max(7vw, 38px);
-    bottom: 18%;
+    bottom: 16%;
     border-color: #5e80c1;
 }
 

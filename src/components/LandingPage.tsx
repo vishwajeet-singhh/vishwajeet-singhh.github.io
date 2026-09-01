@@ -51,7 +51,7 @@ const LandingPage = () => (
                     </a>
                 </div>
                 <div className="profile-group profile-group-full">
-                    <a className="profile-link profile-link-mail" href="mailto:vishy.devv@gmail.com">
+                    <a className="profile-link profile-link-mail" href="mailto:vishwajeet.sage@gmail.com">
                         <Mail aria-hidden="true" size={18}/><span>Anything for me? Mail me</span>
                     </a>
                 </div>
