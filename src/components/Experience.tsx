@@ -1,136 +1,97 @@
-import {ReactNode} from "react";
+import {Fragment} from "react";
+import {GraduationCap} from "lucide-react";
+import Section from "@/components/Section";
+import {EDUCATION, ROLE_STACK, ROLES} from "@/data/profile";
 
-const Experience = () => {
- const fullTimeAchievements = [
+/** Renders **figures** from the copy in profile.ts in ink, so they're easy to scan. */
+const Rich = ({text}: { text: string }) => (
+    <>
+        {text.split(/(\*\*[^*]+\*\*)/).map((part, i) =>
+            part.startsWith("**") ? (
+                <strong key={i} className="font-medium text-ink">
+                    {part.slice(2, -2)}
+                </strong>
+            ) : (
+                <Fragment key={i}>{part}</Fragment>
+            ),
+        )}
+    </>
+);
 
-    "Entrusted as a core engineer and Scrum Master within a ~20-person product organisation spanning Backend, AI, UI, QA, and Product—coordinating delivery while owning business-critical engineering initiatives barely two years into my career.",
-
-    "Conceived, architected, and delivered the company's entire Identity & Access Management substrate as its sole engineer—JWT, RBAC, MFA, OAuth2, tenant isolation, and group-scoped authorisation—now securing 500+ SaaS users alongside on-premises B2B deployments. Also engineered the licensing platform governing every customer installation.",
-
-    "Solely architected, implemented, and continue to steward two production microservices—a licensing platform underpinning enterprise deployments and a shared utilities service consumed across products.",
-
-    "Delivered core capabilities across a dual-service Spring Boot architecture comprising externally facing REST APIs and an internal Kafka execution engine, introducing tenant-configurable APIs, cross-database SQL compatibility, concurrency-safe Spring Batch orchestration, and comprehensive JUnit/Testcontainers validation.",
-
-    "Compressed a 48–60 hour production workflow into approximately 2–3 hours by introducing predicate pushdown, calibrated concurrency, and deployment-specific HikariCP tuning adaptable to each customer's database characteristics.",
-
-    "Engineered crash-resilient recovery semantics for long-running operations spanning PostgreSQL, Oracle, and SAP HANA through journal-based execution provenance, preserving transactional integrity across mid-process failures.",
-
-    "Halved high-volume ingestion latency by strategically suspending database triggers during bulk writes before deterministic integrity restoration.",
-
-    "Designed bulk edit and deletion workflows resilient to mutable datasets by snapshotting candidate records, eliminating pagination drift, bounding execution windows, and reconciling duplicate composite keys before mutation.",
-
-    "Containerised production services with Docker while modernising GitHub Actions delivery pipelines throughout the organisation's AWS-to-GCP migration, governing secrets, deployment automation, and cross-environment parity.",
-
-    "Created and deployed Helix, an open-source AI pull-request review platform adopted across the engineering organisation, enabling deterministic pre-review analysis that removes repetitive review overhead and reduced overall review turnaround by approximately 50%."
-
-];
-
-const internAchievements = [
-
-    "Developed a Python-driven sensitive-data classification engine that sampled field provenance and applied configurable detection heuristics to automate large-scale data profiling.",
-
-    "Implemented tenant-aware group authorisation semantics that reinforced isolation guarantees and strengthened the platform's access-control model before production rollout.",
-
-];
-
-    const Bullet = ({children}: { children: ReactNode }) => (
-        <li className="flex gap-3 items-start">
-            <span
-                className="flex-shrink-0 mt-[9px] w-1.5 h-1.5"
-                style={{backgroundColor: "var(--dev-accent)"}}
-            />
-            <span style={{color: "var(--dev-body)", fontSize: "15px", lineHeight: 1.7, textAlign: "justify"}}>
-                {children}
-            </span>
-        </li>
-    );
-
-    return (
-        <section
-            id="experience"
-            className="px-5 md:px-10 py-12 md:py-16"
-            style={{scrollMarginTop: "80px"}}
-        >
-            {/* Eyebrow */}
-            <p className="dev-label mb-3">// experience</p>
-
-            {/* Heading */}
-            <h2
-                className="mb-8"
-                style={{color: "var(--dev-text)", fontSize: "clamp(22px, 3vw, 28px)", fontWeight: 700}}
-            >
-                Professional Experience
-            </h2>
-
-            <div className="space-y-5">
-
-                {/* Full-time entry */}
-                <div className="dev-card" style={{padding: "28px"}}>
-                    {/* Role + company */}
-                    <div className="flex flex-wrap items-baseline gap-x-3 mb-1">
-                        <h3 style={{color: "var(--dev-text)", fontSize: "20px", fontWeight: 700}}>
-                            Software Engineer
-                        </h3>
-                        <span style={{color: "var(--dev-accent)", fontSize: "16px", fontWeight: 600}}>
-                            Maya Data Privacy
-                        </span>
-                    </div>
-
-                    {/* Clarification line */}
-                    <p className="italic mb-3" style={{color: "var(--dev-muted)", fontSize: "14px"}}>
-                        Three roles at once · Developer · Scrum Master · Tester
-                    </p>
-
-                    <p className="dev-label mb-4">
-                        Jan 2024 – Present
-                    </p>
-
-                    {/* Badges */}
-                    <div className="flex flex-wrap gap-2 mb-6">
-                        {["Software Engineer", "Scrum Master", "Tester"].map(badge => (
-                            <span key={badge} className="dev-tag dev-tag-accent">
-                                {badge}
+const Experience = () => (
+    <Section
+        id="experience"
+        title="Experience"
+        lede="Nearly three years at Maya Data Privacy, starting as an intern in December 2023."
+    >
+        <ol className="relative space-y-6">
+            {ROLES.map((role, index) => (
+                <li key={role.title} className="card card-pad grid gap-6 lg:grid-cols-[240px_1fr] lg:gap-10">
+                    <div>
+                        <p className="text-[13px] text-ink-3 tabular">{role.period}</p>
+                        <h3 className="mt-2 text-[20px] font-semibold">{role.title}</h3>
+                        <p className="mt-1 text-[15px] text-ink-2">
+                            {role.company} · {role.location}
+                        </p>
+                        {index === 0 && (
+                            <span className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-accent-soft px-2.5 py-1 text-[12px] font-medium text-accent-strong">
+                                <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true"/>
+                                Current
                             </span>
-                        ))}
+                        )}
                     </div>
 
-                    {/* Achievements */}
-                    <ul className="space-y-3.5">
-                        {fullTimeAchievements.map((item, i) => (
-                            <Bullet key={i}>{item}</Bullet>
-                        ))}
-                    </ul>
-                </div>
+                    <div>
+                        <p className="text-[16px] leading-relaxed text-ink">{role.summary}</p>
 
-                {/* Intern entry */}
-                <div className="dev-card" style={{padding: "28px"}}>
-                    <div className="flex flex-wrap items-baseline gap-x-3 mb-1">
-                        <h3 style={{color: "var(--dev-text)", fontSize: "20px", fontWeight: 700}}>
-                            Software Engineer Intern
-                        </h3>
-                        <span style={{color: "var(--dev-accent)", fontSize: "15px", fontWeight: 600}}>
-                            Maya Data Privacy
-                        </span>
+                        {role.groups.length > 0 && (
+                            <dl className="mt-6 divide-y divide-line border-t border-line">
+                                {role.groups.map((group) => (
+                                    <div key={group.theme} className="grid gap-2 py-4 sm:grid-cols-[150px_1fr] sm:gap-6">
+                                        <dt className="pt-px text-[13px] font-medium text-ink-3">
+                                            {group.theme}
+                                        </dt>
+                                        <dd className="space-y-2.5">
+                                            {group.points.map((point) => (
+                                                <p key={point} className="text-[15px] leading-relaxed text-ink-2">
+                                                    <Rich text={point}/>
+                                                </p>
+                                            ))}
+                                        </dd>
+                                    </div>
+                                ))}
+                            </dl>
+                        )}
+
+                        {index === 0 && (
+                            <ul className="mt-6 flex flex-wrap gap-1.5" aria-label="Technologies used">
+                                {ROLE_STACK.map((tech) => (
+                                    <li key={tech} className="chip">
+                                        {tech}
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
                     </div>
+                </li>
+            ))}
+        </ol>
 
-                    <p className="italic mb-3" style={{color: "var(--dev-muted)", fontSize: "14px"}}>
-                        Converted to full-time
+        <div className="card-pad-x mt-6 flex flex-col gap-4 rounded-2xl border border-line bg-surface/60 py-5 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-4">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-subtle text-ink-2">
+                    <GraduationCap size={20} aria-hidden="true"/>
+                </span>
+                <div>
+                    <p className="text-[15px] font-semibold text-ink">
+                        {EDUCATION.degree}, {EDUCATION.school}
                     </p>
-
-                    <p className="dev-label mb-5">
-                        Dec 2023
-                    </p>
-
-                    <ul className="space-y-3.5">
-                        {internAchievements.map((item, i) => (
-                            <Bullet key={i}>{item}</Bullet>
-                        ))}
-                    </ul>
+                    <p className="text-[14px] text-ink-2">{EDUCATION.score}</p>
                 </div>
-
             </div>
-        </section>
-    );
-};
+            <p className="text-[13px] text-ink-3">Graduated {EDUCATION.year}</p>
+        </div>
+    </Section>
+);
 
 export default Experience;

@@ -74,6 +74,9 @@ function getTrafficInfo() {
 
 const VisitorLogger = () => {
     useEffect(() => {
+        // Local dev reloads aren't visitors.
+        if (import.meta.env.DEV) return;
+
         async function logVisitor() {
             try {
                 // 1️⃣ Fetch full IP data
