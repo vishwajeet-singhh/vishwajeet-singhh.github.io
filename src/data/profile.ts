@@ -12,7 +12,7 @@ export const PROFILE = {
     // Single source of truth for the resume link.
     resumeUrl: "https://drive.google.com/file/d/1zdu-Cr772mH3U8AMBPDTvFojiuFG4gsj/view?usp=drive_link",
     githubUrl: "https://github.com/vishwajeet-singhh",
-    linkedinUrl: "https://www.linkedin.com/in/vishyysingh/",
+    linkedinUrl: "https://www.linkedin.com/in/vishwajeetsage/",
 } as const;
 
 export type Highlight = {
