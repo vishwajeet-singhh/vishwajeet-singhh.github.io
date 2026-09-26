@@ -1,4 +1,0 @@
-/* App shell — minimal reset, layout handled by Tailwind container */
-#root {
-    min-height: 100vh;
-}

@@ -1,31 +1,34 @@
-import {Toaster} from "@/components/ui/toaster";
-import {Toaster as Sonner} from "@/components/ui/sonner";
-import {TooltipProvider} from "@/components/ui/tooltip";
-import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
-import VisitorLogger from "./components/VisitorLogger"; // 👈 added here
-
-const queryClient = new QueryClient();
+import Contact from "@/components/Contact";
+import Experience from "@/components/Experience";
+import Hero from "@/components/Hero";
+import OpenSource from "@/components/OpenSource";
+import ProblemSolving from "@/components/ProblemSolving";
+import SiteHeader from "@/components/SiteHeader";
+import Stack from "@/components/Stack";
+import StatsProvider from "@/components/StatsProvider";
+import VisitorLogger from "@/components/VisitorLogger";
 
 const App = () => (
-    <QueryClientProvider client={queryClient}>
-        {/* 👇 Runs automatically once per visitor */}
+    <StatsProvider>
+        {/* Runs once per visit */}
         <VisitorLogger/>
 
-        <TooltipProvider>
-            <Toaster/>
-            <Sonner/>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<Index/>}/>
-                    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                    <Route path="*" element={<NotFound/>}/>
-                </Routes>
-            </BrowserRouter>
-        </TooltipProvider>
-    </QueryClientProvider>
+        <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-3 focus:z-50 focus:rounded-md focus:bg-ink focus:px-3 focus:py-2 focus:text-white"
+        >
+            Skip to content
+        </a>
+        <SiteHeader/>
+        <main id="main">
+            <Hero/>
+            <Experience/>
+            <ProblemSolving/>
+            <OpenSource/>
+            <Stack/>
+            <Contact/>
+        </main>
+    </StatsProvider>
 );
 
 export default App;

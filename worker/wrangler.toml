@@ -1,0 +1,21 @@
+# Live stats API for vishwajeet.me. Setup steps are in the repo README.
+name = "vishwajeet-stats"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+
+# One row per source (numbers + incremental bookkeeping) and the timestamp
+# that throttles refreshes to once per 5 minutes. Create it with:
+#   npx wrangler d1 create portfolio-stats
+# paste the database_id it prints below, then run `npm run seed`.
+# The table creates itself on first use.
+[[d1_databases]]
+binding = "DB"
+database_name = "portfolio-stats"
+database_id = "86ad6547-468f-4502-85a0-ca5c6e7590c7"
+
+[vars]
+# Origins allowed to call the API from a browser.
+ALLOWED_ORIGINS = "https://vishwajeet.me,https://vishwajeet-singhh.github.io,http://localhost:8080"
+
+[observability]
+enabled = true
