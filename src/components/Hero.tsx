@@ -27,7 +27,7 @@ const Hero = () => (
                 <p className="mt-4 max-w-xl text-[16px] leading-relaxed text-ink-2">
                     I design, build and run backend services: REST APIs backed by PostgreSQL, Oracle and SAP HANA, a
                     licensing service with its IAM layer, and data pipelines for datasets of 100k+ tables. Outside
-                    work, I solve algorithm problems on LeetCode, Codeforces, CodeChef and GeeksforGeeks.
+                    work, I solve problems on LeetCode, Codeforces, CodeChef and GeeksforGeeks.
                 </p>
 
                 <div className="mt-8 flex flex-wrap items-center gap-2 sm:gap-3">
