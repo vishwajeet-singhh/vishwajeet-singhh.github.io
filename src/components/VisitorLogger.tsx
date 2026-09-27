@@ -1,129 +1,234 @@
-import {useEffect} from "react";
+import { useEffect } from "react";
 import emailjs from "@emailjs/browser";
 
-/**
- * Extracts UTM parameters + HTTP referrer from the current page and derives a
- * human-readable traffic source.
- *
- * Detection priority (per requirements):
- *   1. If utm_source is present, use it (mapped to a friendly label).
- *   2. Otherwise fall back to inspecting document.referrer.
- *
- * NOTE ON FORWARDED LINKS:
- *   UTM parameters live in the URL itself. If a visitor forwards a tagged link
- *   (e.g. the LinkedIn/Naukri/CV/cold-email URLs) to someone else, the forwarded
- *   visit will still report the ORIGINAL utm_source. This is an inherent
- *   limitation of URL-based attribution and is intentionally NOT "corrected"
- *   here — the source reflects where the link originated, not who clicked it.
- *
- * All fields gracefully degrade: missing UTM params and empty referrers are
- * normalised to safe, readable defaults so the email never shows "undefined".
- */
 function getTrafficInfo() {
     const params = new URLSearchParams(window.location.search);
 
-    // Gracefully handle missing UTM parameters -> empty string default.
     const utm_source = params.get("utm_source") || "";
     const utm_medium = params.get("utm_medium") || "";
     const utm_campaign = params.get("utm_campaign") || "";
     const utm_term = params.get("utm_term") || "";
     const utm_content = params.get("utm_content") || "";
 
-    // Gracefully handle empty referrers.
     const referrer = document.referrer || "";
 
-    // Friendly labels for the explicit UTM sources we hand out.
     const utmSourceLabels: Record<string, string> = {
         linkedin: "LinkedIn",
         naukri: "Naukri",
         cv: "Resume / CV",
         "cold-email": "Cold Email",
         google: "Google Search",
+        github: "GitHub",
+        reddit: "Reddit",
+        facebook: "Facebook",
+        instagram: "Instagram",
+        x: "X / Twitter",
+        twitter: "X / Twitter",
     };
 
-    let trafficSource: string;
+    let trafficSource = "Direct / Unknown";
+    let referrerHost = "Direct";
 
+    // 1. UTM source has highest priority
     if (utm_source) {
-        // 1️⃣ UTM source wins when present.
-        trafficSource = utmSourceLabels[utm_source.toLowerCase()] || utm_source;
-    } else if (referrer) {
-        // 2️⃣ Otherwise infer from the referrer host.
-        const ref = referrer.toLowerCase();
-        if (ref.includes("linkedin.com")) trafficSource = "LinkedIn";
-        else if (ref.includes("naukri.com")) trafficSource = "Naukri";
-        else if (ref.includes("google.com")) trafficSource = "Google Search";
-        else trafficSource = "Other";
-    } else {
-        // Empty referrer + no UTM => typed URL, bookmark, or app click.
-        trafficSource = "Direct / Unknown";
+        trafficSource =
+            utmSourceLabels[utm_source.toLowerCase()] || utm_source;
+    }
+
+    // 2. Otherwise detect from browser referrer
+    else if (referrer) {
+        try {
+            const referrerUrl = new URL(referrer);
+            const hostname = referrerUrl.hostname.toLowerCase();
+
+            referrerHost = hostname;
+
+            // Search engines
+            if (
+                hostname === "google.com" ||
+                hostname.endsWith(".google.com") ||
+                hostname.endsWith(".google.co.in")
+            ) {
+                trafficSource = "Google Search";
+            } else if (
+                hostname === "bing.com" ||
+                hostname.endsWith(".bing.com")
+            ) {
+                trafficSource = "Bing Search";
+            } else if (
+                hostname === "search.yahoo.com" ||
+                hostname.endsWith(".yahoo.com")
+            ) {
+                trafficSource = "Yahoo Search";
+            } else if (
+                hostname === "duckduckgo.com" ||
+                hostname.endsWith(".duckduckgo.com")
+            ) {
+                trafficSource = "DuckDuckGo";
+            }
+
+            // Job / professional platforms
+            else if (
+                hostname === "linkedin.com" ||
+                hostname.endsWith(".linkedin.com")
+            ) {
+                trafficSource = "LinkedIn";
+            } else if (
+                hostname === "naukri.com" ||
+                hostname.endsWith(".naukri.com")
+            ) {
+                trafficSource = "Naukri";
+            }
+
+            // Developer platforms
+            else if (
+                hostname === "github.com" ||
+                hostname.endsWith(".github.com")
+            ) {
+                trafficSource = "GitHub";
+            } else if (
+                hostname === "stackoverflow.com" ||
+                hostname.endsWith(".stackoverflow.com")
+            ) {
+                trafficSource = "Stack Overflow";
+            }
+
+            // Social platforms
+            else if (
+                hostname === "reddit.com" ||
+                hostname.endsWith(".reddit.com")
+            ) {
+                trafficSource = "Reddit";
+            } else if (
+                hostname === "facebook.com" ||
+                hostname.endsWith(".facebook.com")
+            ) {
+                trafficSource = "Facebook";
+            } else if (
+                hostname === "instagram.com" ||
+                hostname.endsWith(".instagram.com")
+            ) {
+                trafficSource = "Instagram";
+            } else if (
+                hostname === "x.com" ||
+                hostname.endsWith(".x.com") ||
+                hostname === "twitter.com" ||
+                hostname.endsWith(".twitter.com")
+            ) {
+                trafficSource = "X / Twitter";
+            }
+
+            // Anything else
+            else {
+                trafficSource = "Other";
+            }
+        } catch {
+            trafficSource = "Other";
+            referrerHost = "Unknown";
+        }
     }
 
     return {
         trafficSource,
+
         utm_source: utm_source || "N/A",
         utm_medium: utm_medium || "N/A",
         utm_campaign: utm_campaign || "N/A",
         utm_term: utm_term || "N/A",
         utm_content: utm_content || "N/A",
-        // Keep a distinct, readable value for the email (existing `referrer`
-        // field below already sends "Direct" when empty for backward compat).
+
         traffic_referrer: referrer || "Direct",
-        landing_url: window.location.origin + window.location.pathname,
+        referrer_host: referrerHost,
+
+        landing_url:
+            window.location.origin + window.location.pathname,
+
+        full_url: window.location.href,
     };
 }
 
 const VisitorLogger = () => {
     useEffect(() => {
-        // Local dev reloads aren't visitors.
+        // Do not log visitors during local development
         if (import.meta.env.DEV) return;
 
         async function logVisitor() {
             try {
-                // 1️⃣ Fetch full IP data
+                // 1. Fetch IP / location information
                 const res = await fetch("https://ipapi.co/json/");
+
+                if (!res.ok) {
+                    throw new Error(`IP API failed: ${res.status}`);
+                }
+
                 const ipData = await res.json();
 
-                // 2️⃣ Detect device type
+                // 2. Detect device
                 const ua = navigator.userAgent || "";
-                let deviceType = "Desktop";
-                if (/Mobi|Android|iPhone|iPad|iPod/i.test(ua)) deviceType = "Mobile";
-                else if (/Tablet|iPad/i.test(ua)) deviceType = "Tablet";
 
-                // 3️⃣ Derive traffic / UTM attribution (additive, non-breaking)
+                let deviceType = "Desktop";
+
+                if (/Mobi|Android|iPhone|iPod/i.test(ua)) {
+                    deviceType = "Mobile";
+                } else if (/Tablet|iPad/i.test(ua)) {
+                    deviceType = "Tablet";
+                }
+
+                // 3. Get traffic information
                 const trafficInfo = getTrafficInfo();
 
-                // 4️⃣ Build template params (all fields merged)
+                // 4. Build EmailJS template parameters
                 const templateParams = {
-                    ...ipData, // includes all API fields
+                    ...ipData,
+
                     deviceType,
                     platform: navigator.platform,
                     screen: `${window.screen.width}x${window.screen.height}`,
                     ua,
+
                     url: window.location.href,
                     referrer: document.referrer || "Direct",
                     timestamp: new Date().toISOString(),
+
                     subject: "🌍 New Visitor on Portfolio",
-                    // --- Traffic Information (new, appended section) ---
+
+                    // Traffic source
                     traffic_source: trafficInfo.trafficSource,
+
+                    // UTM information
                     utm_source: trafficInfo.utm_source,
                     utm_medium: trafficInfo.utm_medium,
                     utm_campaign: trafficInfo.utm_campaign,
                     utm_term: trafficInfo.utm_term,
                     utm_content: trafficInfo.utm_content,
+
+                    // Referrer information
                     traffic_referrer: trafficInfo.traffic_referrer,
+                    referrer_host: trafficInfo.referrer_host,
+
+                    // URLs
                     landing_url: trafficInfo.landing_url,
-                    full_url: window.location.href,
+                    full_url: trafficInfo.full_url,
                 };
 
-                // 5️⃣ EmailJS credentials
-                const serviceID = "service_irg2tqs";
-                const templateID = "template_wmt8mng";
-                const publicKey = "P3AEzbFLAgiLPNdtE";
+                // 5. EmailJS credentials
+                const serviceID = "service_oe313cl";
+                const templateID = "template_wtmzd6p";
 
-                // 6️⃣ Send the email
-                await emailjs.send(serviceID, templateID, templateParams, publicKey);
+                // PUBLIC KEY - safe for frontend
+                const publicKey = "x8wsX1gsx1tqedpYW";
+
+                // 6. Send email
+                await emailjs.send(
+                    serviceID,
+                    templateID,
+                    templateParams,
+                    publicKey
+                );
+
+                console.log("Visitor logged successfully");
             } catch (err) {
-                console.warn("logging failed:", err);
+                console.warn("Visitor logging failed:", err);
             }
         }
 
