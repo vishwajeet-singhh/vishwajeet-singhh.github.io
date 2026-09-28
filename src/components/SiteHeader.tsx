@@ -1,11 +1,13 @@
 import {useEffect, useState} from "react";
 import {ArrowUpRight, Menu, X} from "lucide-react";
 import {GitHubIcon, LinkedInIcon} from "@/components/icons";
+import {FEATURES} from "@/data/features";
 import {PROFILE} from "@/data/profile";
 
 const NAV_ITEMS = [
     {id: "experience", label: "Experience"},
-    {id: "problem-solving", label: "Problem solving"},
+    // Shown only when the section is (see src/data/features.ts).
+    ...(FEATURES.problemSolving ? [{id: "problem-solving", label: "Problem solving"}] : []),
     {id: "open-source", label: "Open source"},
     {id: "skills", label: "Skills"},
     {id: "contact", label: "Contact"},

@@ -7,6 +7,7 @@ import SiteHeader from "@/components/SiteHeader";
 import Stack from "@/components/Stack";
 import StatsProvider from "@/components/StatsProvider";
 import VisitorLogger from "@/components/VisitorLogger";
+import {FEATURES} from "@/data/features";
 
 const App = () => (
     <StatsProvider>
@@ -23,7 +24,8 @@ const App = () => (
         <main id="main">
             <Hero/>
             <Experience/>
-            <ProblemSolving/>
+            {/* Hidden until FEATURES.problemSolving is turned on (src/data/features.ts). */}
+            {FEATURES.problemSolving && <ProblemSolving/>}
             <OpenSource/>
             <Stack/>
             <Contact/>

@@ -2,6 +2,7 @@ import {type ReactNode, useState} from "react";
 import {Check, Copy, FileText, Mail} from "lucide-react";
 import {GitHubIcon, LinkedInIcon, PLATFORM_ICONS} from "@/components/icons";
 import Section from "@/components/Section";
+import {FEATURES} from "@/data/features";
 import {PROFILE} from "@/data/profile";
 import {useNow, useStats} from "@/lib/live-stats";
 import {availablePlatforms, formatUpdated, PLATFORM_NAMES} from "@/lib/stats";
@@ -42,7 +43,8 @@ const Contact = () => {
         {href: PROFILE.githubUrl, label: "GitHub", icon: <GitHubIcon size={19}/>},
         {href: PROFILE.linkedinUrl, label: "LinkedIn", icon: <LinkedInIcon size={17}/>},
         {href: PROFILE.resumeUrl, label: "Résumé", icon: <FileText size={21} strokeWidth={1.75} aria-hidden="true"/>},
-        ...availablePlatforms(stats).map((id) => {
+        // Coding-platform profiles, shown only with the Problem solving section (src/data/features.ts).
+        ...(FEATURES.problemSolving ? availablePlatforms(stats) : []).map((id) => {
             const Icon = PLATFORM_ICONS[id];
             return {href: stats.platforms[id]!.url, label: PLATFORM_NAMES[id], icon: <Icon size={OPTICAL_SIZE[id]}/>};
         }),
@@ -76,9 +78,12 @@ const Contact = () => {
                     </div>
 
                     <nav aria-label="Profiles" className="mt-8 border-t border-line pt-6">
-                        {/* Seven equal tiles across the full card width, so the row lines up with the email
-                            block above on both edges while the gaps stay small and even. */}
-                        <ul className="grid grid-cols-7 gap-2 sm:gap-3">
+                        {/* Equal tiles across the full card width, one per link, so the row lines up with
+                            the email block above on both edges while the gaps stay small and even. */}
+                        <ul
+                            className="grid gap-2 sm:gap-3"
+                            style={{gridTemplateColumns: `repeat(${links.length}, minmax(0, 1fr))`}}
+                        >
                             {links.map((link) => (
                                 <li key={link.label}>
                                     <a
@@ -101,7 +106,7 @@ const Contact = () => {
             <footer className="page-container">
                 <div className="flex flex-col gap-2 border-t border-line py-8 text-[13px] text-ink-3 sm:flex-row sm:justify-between">
                     <p>© {new Date().getFullYear()} {PROFILE.name}</p>
-                    <p>Coding stats updated {formatUpdated(stats.generatedAt, now)}</p>
+                    {FEATURES.problemSolving && <p>Coding stats updated {formatUpdated(stats.generatedAt, now)}</p>}
                 </div>
             </footer>
         </>
