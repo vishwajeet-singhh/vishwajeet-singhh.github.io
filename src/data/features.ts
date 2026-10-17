@@ -8,5 +8,5 @@ export const FEATURES = {
      * Codeforces / CodeChef icons under Contact, and the "Coding stats
      * updated" note in the footer. Hidden for now; turn on when ready.
      */
-    problemSolving: true,
+    problemSolving: false,
 } as const;
