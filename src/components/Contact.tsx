@@ -31,13 +31,12 @@ type ProfileLink = { href: string; label: string; icon: ReactNode };
 const Contact = () => {
     const {stats} = useStats();
     const now = useNow(60_000);
-    // Brand marks have very different shapes (GFG is 2:1, LinkedIn a solid square),
-    // so each gets a size that gives it roughly the same visual weight.
+    // Brand marks have very different shapes (LinkedIn is a solid square), so each
+    // gets a size that gives it roughly the same visual weight.
     const OPTICAL_SIZE: Record<string, number> = {
         leetcode: 20,
         codeforces: 21,
         codechef: 21,
-        gfg: 25,
     };
     const links: ProfileLink[] = [
         {href: PROFILE.githubUrl, label: "GitHub", icon: <GitHubIcon size={19}/>},

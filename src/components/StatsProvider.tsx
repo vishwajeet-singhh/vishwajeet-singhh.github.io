@@ -1,6 +1,6 @@
 import {type ReactNode, useEffect, useMemo, useState} from "react";
 import {LiveStatsContext, type SourceResponse, STATS_API_URL, type StatsResponse} from "@/lib/live-stats";
-import {BAKED_STATS, mergeSource, mergeStats} from "@/lib/stats";
+import {BAKED_STATS, mergeSource, mergeStats, SOURCE_NAMES} from "@/lib/stats";
 
 /** How often an open tab checks again. Matches the Worker's refresh window. */
 const RECHECK_MS = 5 * 60_000;
@@ -44,10 +44,12 @@ const StatsProvider = ({children}: { children: ReactNode }) => {
                 if (!res.ok) return;
                 const body = (await res.json()) as StatsResponse;
                 setStats((current) => mergeStats(current, body.stats));
-                if (!body.stale.length) return;
+                // Only sources this page knows; an older Worker may still list removed ones.
+                const stale = body.stale.filter((name) => SOURCE_NAMES.includes(name));
+                if (!stale.length) return;
                 setUpdating(true);
                 // One request per source, in parallel: each is its own small Worker run.
-                await Promise.allSettled(body.stale.map(refreshSource));
+                await Promise.allSettled(stale.map(refreshSource));
             } catch {
                 // Offline or blocked: keep what's on screen.
             } finally {

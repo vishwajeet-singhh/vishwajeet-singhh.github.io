@@ -32,7 +32,7 @@ type RatingBlock = {
 };
 
 function ratingFor(id: PlatformId, stats: Stats): RatingBlock | null {
-    const {leetcode, codeforces, codechef, gfg} = stats.platforms;
+    const {leetcode, codeforces, codechef} = stats.platforms;
     switch (id) {
         case "leetcode":
             if (!leetcode?.rating) return null;
@@ -70,13 +70,6 @@ function ratingFor(id: PlatformId, stats: Stats): RatingBlock | null {
                 history: codechef?.ratingHistory,
             };
         }
-        case "gfg":
-            if (!gfg?.score) return null;
-            return {
-                label: "Coding score",
-                value: formatNumber(gfg.score),
-                notes: gfg.instituteRank ? [`Institute rank #${gfg.instituteRank}`] : [],
-            };
     }
 }
 

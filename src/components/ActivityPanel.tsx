@@ -66,7 +66,7 @@ const ActivityPanel = () => {
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                     <h3 className="text-[18px] font-semibold">Submission activity</h3>
-                    <p className="mt-1 text-[14px] text-ink-3">Daily submissions across all four platforms.</p>
+                    <p className="mt-1 text-[14px] text-ink-3">Daily submissions across all three platforms.</p>
                 </div>
                 <div
                     role="group"

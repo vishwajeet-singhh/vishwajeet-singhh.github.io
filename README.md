@@ -7,7 +7,7 @@ Personal site of Vishwajeet Pratap Singh, a backend developer. React + Vite + Ta
 ```bash
 npm install
 npm run dev        # http://localhost:8080
-npm run stats      # refresh src/data/stats.json from LeetCode, Codeforces, CodeChef, GFG and GitHub
+npm run stats      # refresh src/data/stats.json from LeetCode, Codeforces, CodeChef and GitHub
 npm run build      # type-check + production build into dist/
 ```
 
@@ -72,6 +72,5 @@ Difficulty is normalised to LeetCode's Easy / Medium / Hard:
 
 - **Codeforces, CodeChef**: problem rating below 1200 is Easy, 1200–1600 is Medium, above 1600 is Hard. Problems without
   an official rating are counted as Medium.
-- **GeeksforGeeks**: School and Basic problems are excluded.
 
 Handles are set at the top of `scripts/sources.mjs`.

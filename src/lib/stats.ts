@@ -38,11 +38,6 @@ export type CodeChefStats = PlatformBase & {
     ratingHistory: RatingPoint[];
 };
 
-export type GfgStats = PlatformBase & {
-    score: number | null;
-    instituteRank: number | null;
-};
-
 export type GitHubStats = {
     handle: string;
     url: string;
@@ -62,7 +57,6 @@ export type Stats = {
         leetcode: LeetCodeStats | null;
         codeforces: CodeforcesStats | null;
         codechef: CodeChefStats | null;
-        gfg: GfgStats | null;
     };
     github: GitHubStats | null;
 };
@@ -72,20 +66,18 @@ export const BAKED_STATS = raw as unknown as Stats;
 
 export type PlatformId = keyof Stats["platforms"];
 
-export const PLATFORM_ORDER: PlatformId[] = ["leetcode", "codeforces", "codechef", "gfg"];
+export const PLATFORM_ORDER: PlatformId[] = ["leetcode", "codeforces", "codechef"];
 
 export const PLATFORM_NAMES: Record<PlatformId, string> = {
     leetcode: "LeetCode",
     codeforces: "Codeforces",
     codechef: "CodeChef",
-    gfg: "GeeksforGeeks",
 };
 
 export const PLATFORM_SHORT_NAMES: Record<PlatformId, string> = {
     leetcode: "LeetCode",
     codeforces: "Codeforces",
     codechef: "CodeChef",
-    gfg: "GFG",
 };
 
 export const DIFFICULTIES: { id: Difficulty; label: string }[] = [
@@ -242,7 +234,6 @@ export function mergeStats(a: Stats, b: Stats): Stats {
             leetcode: newer(a.platforms.leetcode, b.platforms.leetcode),
             codeforces: newer(a.platforms.codeforces, b.platforms.codeforces),
             codechef: newer(a.platforms.codechef, b.platforms.codechef),
-            gfg: newer(a.platforms.gfg, b.platforms.gfg),
         },
         github: newer(a.github, b.github),
     };

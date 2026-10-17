@@ -79,7 +79,7 @@ const ProblemSolving = () => {
         <Section
             id="problem-solving"
             title="Problem solving"
-            lede="Problems I have solved on LeetCode, Codeforces, CodeChef and GeeksforGeeks. The figures come straight from each platform and stay up to date on their own. Difficulty is grouped into LeetCode's Easy, Medium and Hard levels."
+            lede="Problems I have solved on LeetCode, Codeforces and CodeChef. The figures come straight from each platform and stay up to date on their own. Difficulty is grouped into LeetCode's Easy, Medium and Hard levels."
             aside={<StatsFreshness/>}
         >
             <div className="space-y-6">
@@ -112,7 +112,7 @@ const ProblemSolving = () => {
                 <ActivityPanel/>
 
                 {/* Per platform */}
-                <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+                <div className="grid gap-6 lg:grid-cols-3">
                     {platforms.map((id) => (
                         <PlatformCard key={id} id={id}/>
                     ))}

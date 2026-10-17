@@ -11,14 +11,12 @@
  * Difficulty buckets are normalised to LeetCode's Easy / Medium / Hard:
  *   - Codeforces & CodeChef: rating < 1200 → Easy, 1200–1600 → Medium, > 1600 → Hard.
  *     Problems with no official rating count as Medium.
- *   - GeeksforGeeks: School and Basic problems are excluded entirely.
  */
 
 export const HANDLES = {
     leetcode: "recusant_byte",
     codeforces: "vishy_singh",
     codechef: "recusant_byte",
-    gfg: "vishyy",
     github: "vishwajeet-singhh",
 };
 
@@ -360,52 +358,6 @@ async function fetchCodeChef(handle, prev) {
     };
 }
 
-// ── GeeksforGeeks ──────────────────────────────────────────────────────────
-
-async function gfgSubmissions(handle, requestType = "", year = "") {
-    const body = await request("https://practiceapi.geeksforgeeks.org/api/v1/user/problems/submissions/", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({handle, requestType, year, month: ""}),
-    });
-    if (body.status !== "success") throw new Error(`GFG submissions: ${body.message}`);
-    return body.result;
-}
-
-async function fetchGfg(handle) {
-    const byDifficulty = await gfgSubmissions(handle);
-    const count = (level) => Object.keys(byDifficulty[level] ?? {}).length;
-    // School and Basic are intentionally left out.
-    const solved = {easy: count("Easy"), medium: count("Medium"), hard: count("Hard")};
-
-    let profile = null;
-    try {
-        const body = await request(
-            `https://authapi.geeksforgeeks.org/api-get/user-profile-info/?handle=${encodeURIComponent(handle)}`,
-        );
-        profile = body.data ?? null;
-    } catch {
-        // Score is a nice-to-have; the solved counts above are what matter.
-    }
-
-    const calendar = {};
-    const thisYear = new Date().getFullYear();
-    for (const year of [thisYear - 1, thisYear]) {
-        const days = await gfgSubmissions(handle, "getYearwiseUserSubmissions", String(year));
-        for (const [day, value] of Object.entries(days ?? {})) calendar[day] = Number(value);
-    }
-
-    return {
-        handle,
-        url: `https://www.geeksforgeeks.org/profile/${handle}`,
-        total: solved.easy + solved.medium + solved.hard,
-        solved,
-        score: profile?.score ?? null,
-        instituteRank: profile?.institute_rank ?? null,
-        calendar: trimCalendar(calendar),
-    };
-}
-
 // ── GitHub ─────────────────────────────────────────────────────────────────
 // The public contributions fragment needs no token and matches the graph on
 // the profile page (public contributions, plus private ones if the profile
@@ -502,7 +454,7 @@ async function fetchGitHub(handle, prev, {token} = {}) {
  * @param options   retries / maxRatingLookups tune the request budget,
  *                  githubToken is optional, log receives one line per source
  */
-export const SOURCE_NAMES = ["leetcode", "codeforces", "codechef", "gfg", "github"];
+export const SOURCE_NAMES = ["leetcode", "codeforces", "codechef", "github"];
 
 const previousSource = (previous, name) =>
     (name === "github" ? previous?.github : previous?.platforms?.[name]) ?? null;
@@ -519,7 +471,6 @@ export async function collectSource(name, previous = {}, {retries = 2, maxRating
         leetcode: () => fetchLeetCode(HANDLES.leetcode),
         codeforces: () => fetchCodeforces(HANDLES.codeforces),
         codechef: () => fetchCodeChef(HANDLES.codechef, prev),
-        gfg: () => fetchGfg(HANDLES.gfg),
         github: () => fetchGitHub(HANDLES.github, prev, {token: githubToken}),
     };
     if (!loaders[name]) throw new Error(`Unknown source "${name}"`);
