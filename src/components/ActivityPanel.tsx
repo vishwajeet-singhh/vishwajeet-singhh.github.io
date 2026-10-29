@@ -3,7 +3,7 @@ import Heatmap from "@/components/Heatmap";
 import {PLATFORM_ICONS} from "@/components/icons";
 import {addDays, mergeCalendars, startOfToday, windowStats} from "@/lib/calendar";
 import {useStats} from "@/lib/live-stats";
-import {availablePlatforms, formatNumber, PLATFORM_SHORT_NAMES, type PlatformId} from "@/lib/stats";
+import {availablePlatforms, formatNumber, formatPlatformNames, PLATFORM_SHORT_NAMES, type PlatformId} from "@/lib/stats";
 
 type Filter = "all" | PlatformId;
 
@@ -66,7 +66,11 @@ const ActivityPanel = () => {
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                     <h3 className="text-[18px] font-semibold">Submission activity</h3>
-                    <p className="mt-1 text-[14px] text-ink-3">Daily submissions across all three platforms.</p>
+                    <p className="mt-1 text-[14px] text-ink-3">
+                        {platforms.length === 3
+                            ? "Daily submissions across all three platforms."
+                            : `Daily submissions on ${formatPlatformNames(platforms)}.`}
+                    </p>
                 </div>
                 <div
                     role="group"

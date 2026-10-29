@@ -16,12 +16,31 @@ npm run build      # type-check + production build into dist/
 | Path | What |
 |---|---|
 | `src/data/profile.ts` | All hand-written copy: bio, experience, stack, Helix, links, résumé URL |
+| `src/data/platform-visibility.ts` | Show or hide individual coding profiles; missing entries stay visible |
 | `src/data/stats.json` | Stats snapshot baked into the page. Committed so builds work offline |
 | `scripts/sources.mjs` | Fetches every platform. Shared by the build script and the Worker |
 | `scripts/fetch-stats.mjs` | Writes the baked snapshot (runs before each deploy) |
 | `worker/` | Cloudflare Worker that keeps the stats fresh on visits (at most every 5 min) |
 | `src/components/` | One file per section, plus `Heatmap`, `DifficultyBar`, `PlatformCard` |
 | `src/index.css` | Design tokens (colours, heatmap ramp, difficulty colours) |
+
+## Coding-profile visibility
+
+Edit `src/data/platform-visibility.ts`, then rebuild/redeploy. For example, to show only LeetCode:
+
+```ts
+export const PLATFORM_VISIBILITY: Partial<Record<PlatformId, boolean>> = {
+    leetcode: true,
+    codeforces: false,
+    codechef: false,
+};
+```
+
+Only `false` hides a profile. `true`, an omitted value, or a missing entry keeps it visible.
+The setting applies to profile cards, Contact links, activity filters, totals, charts and platform names in the copy.
+The existing layout fills the available space with the remaining cards. If all profiles are hidden, the Problem
+solving section, its navigation link and its footer update note are hidden too. Profile data and stats fetching
+are preserved, so enabling a profile brings it back. `src/data/features.ts` still controls the entire section.
 
 ## How the stats stay fresh
 

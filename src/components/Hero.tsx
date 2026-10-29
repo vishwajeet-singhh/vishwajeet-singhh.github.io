@@ -2,6 +2,9 @@ import {ArrowUpRight, Mail, MapPin} from "lucide-react";
 import portrait from "@/assets/portrait.webp";
 import {GitHubIcon, LinkedInIcon} from "@/components/icons";
 import {HIGHLIGHTS, PROFILE} from "@/data/profile";
+import {formatPlatformNames, visiblePlatforms} from "@/lib/stats";
+
+const platformNames = formatPlatformNames(visiblePlatforms());
 
 const Hero = () => (
     <section id="top">
@@ -26,8 +29,8 @@ const Hero = () => (
                 </p>
                 <p className="mt-4 max-w-xl text-[16px] leading-relaxed text-ink-2">
                     I design, build and run backend services: REST APIs backed by PostgreSQL, Oracle and SAP HANA, a
-                    licensing service with its IAM layer, and data pipelines for datasets of 100k+ tables. Outside
-                    work, I solve problems on LeetCode, Codeforces and CodeChef.
+                    licensing service with its IAM layer, and data pipelines for datasets of 100k+ tables.
+                    {platformNames && <> Outside work, I solve problems on {platformNames}.</>}
                 </p>
 
                 <div className="mt-8 flex flex-wrap items-center gap-2 sm:gap-3">

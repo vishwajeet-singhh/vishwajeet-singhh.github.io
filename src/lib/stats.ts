@@ -1,4 +1,5 @@
 import raw from "@/data/stats.json";
+import {isPlatformVisible} from "@/data/platform-visibility";
 
 export type Difficulty = "easy" | "medium" | "hard";
 export type SolvedBreakdown = Record<Difficulty, number>;
@@ -86,8 +87,17 @@ export const DIFFICULTIES: { id: Difficulty; label: string }[] = [
     {id: "hard", label: "Hard"},
 ];
 
+export const visiblePlatforms = () => PLATFORM_ORDER.filter(isPlatformVisible);
+
 export const availablePlatforms = (stats: Stats) =>
-    PLATFORM_ORDER.filter((id) => stats.platforms[id] != null);
+    visiblePlatforms().filter((id) => stats.platforms[id] != null);
+
+/** Keep the existing wording for three platforms, and adapt it to shorter lists. */
+export function formatPlatformNames(ids: PlatformId[]): string {
+    const names = ids.map((id) => PLATFORM_NAMES[id]);
+    if (names.length < 2) return names.join("");
+    return `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
+}
 
 export function totalSolved(stats: Stats): { total: number; solved: SolvedBreakdown } {
     const solved: SolvedBreakdown = {easy: 0, medium: 0, hard: 0};
@@ -163,7 +173,10 @@ const TOPIC_ALIASES: Record<string, string> = {
 
 export function topTopics(stats: Stats, limit = 12): { name: string; count: number }[] {
     const combined = new Map<string, number>();
-    const sources = [stats.platforms.leetcode?.topics, stats.platforms.codeforces?.topics];
+    const sources = availablePlatforms(stats).map((id) => {
+        const platform = stats.platforms[id];
+        return platform && "topics" in platform ? platform.topics : undefined;
+    });
     for (const topics of sources) {
         if (!topics) continue;
         const perPlatform = new Map<string, number>();

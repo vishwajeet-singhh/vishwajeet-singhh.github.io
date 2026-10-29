@@ -7,7 +7,7 @@ import SiteHeader from "@/components/SiteHeader";
 import Stack from "@/components/Stack";
 import StatsProvider from "@/components/StatsProvider";
 import VisitorLogger from "@/components/VisitorLogger";
-import {FEATURES} from "@/data/features";
+import {SHOW_PROBLEM_SOLVING} from "@/data/features";
 
 const App = () => (
     <StatsProvider>
@@ -24,8 +24,8 @@ const App = () => (
         <main id="main">
             <Hero/>
             <Experience/>
-            {/* Hidden until FEATURES.problemSolving is turned on (src/data/features.ts). */}
-            {FEATURES.problemSolving && <ProblemSolving/>}
+            {/* Visibility is controlled by the feature flag and platform-visibility.ts. */}
+            {SHOW_PROBLEM_SOLVING && <ProblemSolving/>}
             <OpenSource/>
             <Stack/>
             <Contact/>
