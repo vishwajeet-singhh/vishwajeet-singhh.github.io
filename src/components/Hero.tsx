@@ -13,7 +13,19 @@ const Hero = () => {
     const leetcode = platforms.includes("leetcode") ? stats.platforms.leetcode : null;
     const rank = codeforces?.rating.rank?.replace(/\b\w/g, (letter) => letter.toUpperCase());
     const rating = leetcode?.rating?.current;
-    const hasProfiles = Boolean(codeforces || leetcode);
+    const codingProfiles = [
+        ...(codeforces ? [{
+            id: "codeforces", name: "Codeforces", Icon: CodeforcesIcon, url: codeforces.url,
+            label: "Rank", value: rank ?? "—", solved: codeforces.total,
+            accessibleLabel: rank ? `Codeforces rank: ${rank}; ${codeforces.total} problems solved` : "Codeforces profile; rank unavailable",
+        }] : []),
+        ...(leetcode ? [{
+            id: "leetcode", name: "LeetCode", Icon: LeetCodeIcon, url: leetcode.url,
+            label: "Rating", value: rating != null ? formatNumber(rating) : "—", solved: leetcode.total,
+            accessibleLabel: rating != null ? `LeetCode contest rating: ${rating}; ${leetcode.total} problems solved` : "LeetCode profile; contest rating unavailable",
+        }] : []),
+    ];
+    const hasProfiles = codingProfiles.length > 0;
 
     return (
         <section id="top" aria-labelledby="profile-name" className="card overflow-hidden fade-up">
@@ -26,7 +38,7 @@ const Hero = () => {
                 </span>
             </div>
             <div
-                className={`grid gap-5 px-5 pb-5 sm:gap-6 sm:px-7 sm:pb-7 ${hasProfiles ? "sm:grid-cols-[minmax(0,1fr)_190px]" : ""}`}>
+                className={`grid gap-5 px-5 pb-5 sm:gap-6 sm:px-7 sm:pb-7 ${hasProfiles ? "lg:grid-cols-[minmax(0,1fr)_240px]" : ""}`}>
                 <div className="min-w-0">
                     <img src={portrait} alt="Vishwajeet Pratap Singh" width={640} height={640}
                          className="relative -mt-14 h-28 w-28 rounded-full border-4 border-white bg-surface object-cover object-center sm:-mt-16 sm:h-36 sm:w-36"
@@ -59,34 +71,37 @@ const Hero = () => {
                     </div>
                 </div>
                 {hasProfiles && (
-                    <aside aria-label="Coding profile highlights" aria-live="polite"
-                           className={`grid gap-2 border-t border-line pt-3 sm:self-center sm:grid-cols-1 sm:gap-2 sm:border-l sm:border-t-0 sm:pl-4 sm:pt-0 ${codeforces && leetcode ? "grid-cols-2" : "grid-cols-1"}`}>
-                        {codeforces && (
-                            <a href={codeforces.url} target="_blank" rel="noopener noreferrer"
-                               aria-label={rank ? `Codeforces rank: ${rank}; ${codeforces.total} problems solved` : "Codeforces profile"}
-                               className="min-w-0 rounded-lg p-2.5 transition-colors hover:bg-accent-soft">
-                                <span
-                                    className="flex items-center gap-2 text-[12px] font-semibold text-ink-2"><CodeforcesIcon
-                                    size={16}/>Codeforces</span>
-                                <span
-                                    className="mt-1.5 block text-[22px] font-semibold leading-tight text-accent">{rank ?? "View profile"}</span>
-                                <span
-                                    className="mt-1 block text-[11px] text-ink-3">{formatNumber(codeforces.total)} solved</span>
-                            </a>
-                        )}
-                        {leetcode && (
-                            <a href={leetcode.url} target="_blank" rel="noopener noreferrer"
-                               aria-label={rating != null ? `LeetCode contest rating: ${rating}; ${leetcode.total} problems solved` : "LeetCode profile"}
-                               className="min-w-0 rounded-lg p-2.5 transition-colors hover:bg-accent-soft">
-                                <span
-                                    className="flex items-center gap-2 text-[12px] font-semibold text-ink-2"><LeetCodeIcon
-                                    size={16}/>LeetCode</span>
-                                <span
-                                    className="mt-1.5 block text-[22px] font-semibold leading-tight text-accent">{rating ?? "View profile"}</span>
-                                <span
-                                    className="mt-1 block text-[11px] text-ink-3">{formatNumber(leetcode.total)} solved</span>
-                            </a>
-                        )}
+                    <aside aria-labelledby="coding-profiles-title" aria-live="polite"
+                           className="min-w-0 overflow-hidden rounded-xl border border-line bg-surface lg:self-center">
+                        <header className="border-b border-line bg-subtle/70 px-3 py-3">
+                            <h2 id="coding-profiles-title" className="text-[13px] font-semibold text-ink">Coding profiles</h2>
+                        </header>
+                        <div className={`grid ${codingProfiles.length === 2 ? "min-[380px]:grid-cols-2 lg:grid-cols-1" : "grid-cols-1"}`}>
+                            {codingProfiles.map((profile, index) => {
+                                const Icon = profile.Icon;
+                                return (
+                                    <a key={profile.id} href={profile.url} target="_blank" rel="noopener noreferrer"
+                                       aria-label={profile.accessibleLabel}
+                                       className={`group min-w-0 px-3 py-3 transition-colors hover:bg-subtle ${index > 0 ? "border-t border-line min-[380px]:border-l min-[380px]:border-t-0 lg:border-l-0 lg:border-t" : ""}`}>
+                                        <div className="flex min-w-0 items-center gap-2">
+                                            <span className="grid h-5 w-5 shrink-0 place-items-center"><Icon size={16}/></span>
+                                            <span className="min-w-0 flex-1 text-[12px] font-semibold text-ink">{profile.name}</span>
+                                            <ArrowUpRight size={13} className="shrink-0 text-ink-3 transition-colors group-hover:text-accent" aria-hidden="true"/>
+                                        </div>
+                                        <dl className="mt-3 grid grid-cols-2 gap-3">
+                                            <div className="min-w-0">
+                                                <dt className="text-[11px] leading-4 text-ink-3">{profile.label}</dt>
+                                                <dd className="mt-1 min-h-6 break-words text-[16px] font-semibold leading-6 text-ink tabular">{profile.value}</dd>
+                                            </div>
+                                            <div className="min-w-0 text-right">
+                                                <dt className="text-[11px] leading-4 text-ink-3">Solved</dt>
+                                                <dd className="mt-1 min-h-6 text-[16px] font-semibold leading-6 text-ink tabular">{formatNumber(profile.solved)}</dd>
+                                            </div>
+                                        </dl>
+                                    </a>
+                                );
+                            })}
+                        </div>
                     </aside>
                 )}
             </div>

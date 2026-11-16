@@ -37,14 +37,9 @@ export type Highlight = {
 export const HIGHLIGHTS: Highlight[] = [
     {value: "25+", label: "Production REST APIs", detail: "designed and delivered"},
     {value: "~95%", label: "Shorter pipeline runtime", detail: "on datasets of 100k+ tables"},
-    {value: "500+", label: "Users and B2B tenants", detail: "on the licensing and IAM service"},
-    {value: "~50%", label: "Shorter review turnaround", detail: "after rolling out Helix"},
+    {value: "500+", label: "Users and B2B tenants", detail: "on the licensing service"},
+    {value: "50%", label: "Shorter review turnaround", detail: "after rolling out Helix"},
 ];
-
-export type ExperienceGroup = {
-    theme: string;
-    points: string[];
-};
 
 export type Role = {
     title: string;
@@ -52,7 +47,7 @@ export type Role = {
     period: string;
     location: string;
     summary: string;
-    groups: ExperienceGroup[];
+    points: string[];
 };
 
 export const ROLES: Role[] = [
@@ -61,41 +56,15 @@ export const ROLES: Role[] = [
         company: "Maya Data Privacy",
         period: "Jan 2024 – Present",
         location: "Remote",
-        summary:
-            "Build and improve backend services for data-intensive products, with ownership across API design, performance, reliability and access control.",
-        groups: [
-            {
-                theme: "APIs & data",
-                points: [
-                    "Delivered **25+ production REST APIs** by building services integrated with PostgreSQL, Oracle and HANA.",
-                ],
-            },
-            {
-                theme: "Performance",
-                points: [
-                    "Reduced pipeline runtime by **~95%** on datasets of **100k+ tables** by applying predicate pushdown and tuning batch concurrency and per-tenant connection pools.",
-                    "Improved bulk-insert performance by **~50%** and enabled crash-safe recovery by implementing a journaling pattern.",
-                ],
-            },
-            {
-                theme: "Reliability & scale",
-                points: [
-                    "Prevented pagination drift and duplicate processing in bulk edits and deletes by snapshotting matching rows and deduplicating composite keys.",
-                    "Built configurable request and token limits across AI models by coordinating usage through Redis sliding windows and atomic Lua scripts.",
-                ],
-            },
-            {
-                theme: "Security & licensing",
-                points: [
-                    "Supported **500+ SaaS users and B2B tenants** by building and operating a licensing service and IAM layer, using PEM-based keys, JWT, RBAC, MFA and OAuth2.",
-                ],
-            },
-            {
-                theme: "Developer tooling",
-                points: [
-                    "Cut review turnaround by **~50%** by deploying Helix, my open-source AI pull-request reviewer, across the team's GitHub organisation.",
-                ],
-            },
+        summary: "Core Backend Developer in a product team of around 20 people.",
+        points: [
+            "Designed, built and operated **25+ production REST APIs** using Java and Spring Boot, integrating PostgreSQL, Oracle and HANA to support core product workflows.",
+            "Slashed pipeline runtime by **~95%** on **100k+ table datasets** using predicate pushdown, batch concurrency tuning and per-tenant HikariCP pool sizing.",
+            "Accelerated bulk-insert performance by **~50%** using a journaling pattern for high-volume writes, while preserving data integrity.",
+            "Engineered configurable sliding-window **RPM/TPM rate limiting across 3 AI providers** using Redis and atomic Lua scripts to curb API abuse and enforce fair usage.",
+            "Secured **500+ SaaS users and B2B tenants** by designing and operating a licensing service for on-prem/B2B installs with PEM-based key pairs.",
+            "Shipped bulk edit/delete for large tables, snapshotting matched rows upfront to prevent pagination drift and using composite-key deduplication to eliminate double-processing.",
+            "Cut PR review turnaround by **50%** by deploying Helix across my GitHub organisation.",
         ],
     },
     {
@@ -103,32 +72,13 @@ export const ROLES: Role[] = [
         company: "Maya Data Privacy",
         period: "Dec 2023",
         location: "Remote",
-        summary:
-            "Contributed to the production codebase while learning the team's Git workflow and coding conventions.",
-        groups: [],
+        summary: "Gained hands-on experience navigating a live production codebase, working within a team Git workflow and applying professional coding conventions.",
+        points: [],
     },
 ];
 
 export const ROLE_STACK = [
-    "Java",
-    "Spring Boot",
-    "Spring Security",
-    "Spring Batch",
-    "Hibernate",
-    "JDBC",
-    "Python",
-    "Flask",
-    "SQLAlchemy",
-    "PostgreSQL",
-    "Oracle",
-    "HANA",
-    "Kafka",
-    "Redis",
-    "HikariCP",
-    "JUnit",
-    "Docker",
-    "GitHub Actions",
-    "GCP",
+    "Java", "Spring Boot", "PostgreSQL", "Oracle", "HANA", "HikariCP", "Redis", "Lua", "Git", "GitHub", "Docker",
 ];
 
 export const EDUCATION = {
@@ -173,7 +123,7 @@ export const HELIX = {
     url: "https://github.com/vishwajeet-singhh/helix",
     description:
         "Helix reviews GitHub pull requests with a local LLM served by Ollama, so code never leaves your own infrastructure. It is published as a public Docker image: a team can pull it, run it on their own servers and connect it to their GitHub organisation.",
-    usage: "Cut review turnaround by roughly 50% by deploying Helix across my team's GitHub organisation.",
+    usage: "Cut PR review turnaround by 50% by deploying Helix across my GitHub organisation.",
     points: [
         "Keeps webhook handling responsive by returning 202 Accepted and processing reviews asynchronously.",
         "Keeps feedback focused by posting one review with a verdict and inline comments for warning- and critical-level findings.",

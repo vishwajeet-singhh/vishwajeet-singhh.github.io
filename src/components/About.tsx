@@ -17,7 +17,7 @@ const About = () => {
                         <p key={paragraph} className={index === 0 ? "text-ink" : undefined}>{paragraph}</p>
                     ))}
                     {showSolved && solved > 0 && (
-                        <p>I've solved <strong className="font-semibold text-ink">{formatNumber(solved)} problems</strong> across Codeforces and LeetCode, and I keep practising to sharpen my problem-solving skills.</p>
+                        <p>I've solved {formatNumber(solved)} problems across Codeforces and LeetCode, and I keep practising to sharpen my problem-solving skills.</p>
                     )}
                     {ABOUT.slice(2).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
                 </div>

@@ -67,25 +67,18 @@ const Experience = () => (
                                             )}
                                         </div>
                                         <p className="mt-1 text-[13px] text-ink-3 tabular">{role.period}</p>
-                                        <p className="mt-3 text-[15px] leading-relaxed text-ink-2">{role.summary}</p>
+                                        {role.summary && (
+                                            <p className="mt-3 text-[15px] leading-relaxed text-ink-2">{role.summary}</p>
+                                        )}
 
-                                        {role.groups.length > 0 && (
-                                            <dl className="mt-5 space-y-5">
-                                                {role.groups.map((group) => (
-                                                    <div key={group.theme} className="space-y-2">
-                                                        <dt className="text-[14px] font-semibold text-ink">{group.theme}</dt>
-                                                        <dd>
-                                                            <ul className="list-disc space-y-2.5 pl-4 marker:text-ink-3">
-                                                                {group.points.map((point) => (
-                                                                    <li key={point} className="pl-1 text-[15px] leading-relaxed text-ink-2">
-                                                                        <Rich text={point}/>
-                                                                    </li>
-                                                                ))}
-                                                            </ul>
-                                                        </dd>
-                                                    </div>
+                                        {role.points.length > 0 && (
+                                            <ul className="mt-4 list-disc space-y-3 pl-4 marker:text-ink-3">
+                                                {role.points.map((point) => (
+                                                    <li key={point} className="pl-1 text-[15px] leading-relaxed text-ink-2">
+                                                        <Rich text={point}/>
+                                                    </li>
                                                 ))}
-                                            </dl>
+                                            </ul>
                                         )}
 
                                         {role === ROLES[0] && (
