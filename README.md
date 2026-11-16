@@ -1,6 +1,6 @@
 # vishwajeet.me
 
-Personal site of Vishwajeet Pratap Singh, a backend developer. React + Vite + Tailwind, deployed to GitHub Pages.
+Personal site of Vishwajeet Pratap Singh, a Backend Developer focused on APIs, data, performance and reliable systems. React + Vite + Tailwind, deployed to GitHub Pages.
 
 ## Develop
 
@@ -15,7 +15,7 @@ npm run build      # type-check + production build into dist/
 
 | Path | What |
 |---|---|
-| `src/data/profile.ts` | All hand-written copy: bio, experience, stack, Helix, links, résumé URL |
+| `src/data/profile.ts` | Shared profile, About, engineering focus, achievements, experience, stack, Helix and links |
 | `src/data/platform-visibility.ts` | Show or hide individual coding profiles; missing entries stay visible |
 | `src/data/stats.json` | Stats snapshot baked into the page. Committed so builds work offline |
 | `scripts/sources.mjs` | Fetches every platform. Shared by the build script and the Worker |
@@ -93,3 +93,13 @@ Difficulty is normalised to LeetCode's Easy / Medium / Hard:
   an official rating are counted as Medium.
 
 Handles are set at the top of `scripts/sources.mjs`.
+
+## Portfolio presentation
+
+The site uses a light-only professional profile layout: blue actions, warm neutral background, white cards and a desktop engineering-focus sidebar. On smaller screens, the main content becomes a single column; engineering focus remains visible in About. Navigation, platform filters, heatmaps, live stats and visitor logging are retained.
+
+Public positioning is Backend Developer. Technologies are presented as tools used; all portfolio role labels use Backend Developer, including Backend Developer Intern. Keep career metrics grounded in verified experience and keep descriptive copy in `src/data/profile.ts` where practical.
+
+The hero profile panel reads the current Codeforces rank and LeetCode contest rating from the shared stats provider. The About problem count uses those same platforms. Values render from the saved snapshot first, then update through the existing live-stats service; there are no fixed rank/rating values in the headline. The hero side panel contains live Codeforces and LeetCode profiles, stacked on desktop and arranged in two columns below the profile on mobile.
+
+The desktop content container is capped at 1320px to use more of the screen while retaining side padding. Experience groups roles under one company with a compact timeline; accomplishment themes remain above the bullets. Additional role tools expand through a native details control.

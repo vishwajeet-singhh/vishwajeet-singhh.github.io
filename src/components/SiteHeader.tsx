@@ -1,14 +1,15 @@
 import {useEffect, useState} from "react";
-import {ArrowUpRight, Menu, X} from "lucide-react";
+import {ArrowUpRight, Mail, Menu, X} from "lucide-react";
 import {GitHubIcon, LinkedInIcon} from "@/components/icons";
 import {SHOW_PROBLEM_SOLVING} from "@/data/features";
 import {PROFILE} from "@/data/profile";
 
 const NAV_ITEMS = [
+    {id: "about", label: "About"},
     {id: "experience", label: "Experience"},
+    {id: "open-source", label: "Projects"},
     // Shown only when the section is (see src/data/features.ts).
-    ...(SHOW_PROBLEM_SOLVING ? [{id: "problem-solving", label: "Problem solving"}] : []),
-    {id: "open-source", label: "Open source"},
+    ...(SHOW_PROBLEM_SOLVING ? [{id: "problem-solving", label: "Activity"}] : []),
     {id: "skills", label: "Skills"},
     {id: "contact", label: "Contact"},
 ];
@@ -67,22 +68,22 @@ const SiteHeader = () => {
     return (
         <header
             className={`sticky top-0 z-40 border-b transition-[background-color,border-color] duration-200 ${
-                scrolled || open ? "border-line bg-page/85 backdrop-blur-md" : "border-transparent bg-page"
+                scrolled || open ? "border-line bg-surface shadow-sm" : "border-line bg-surface"
             }`}
         >
-            <div className="page-container flex h-[var(--header-h)] items-center justify-between gap-4 lg:grid lg:grid-cols-[1fr_auto_1fr]">
+            <div className="page-container flex h-[var(--header-h)] items-center justify-between gap-4">
                 <a href="#top" className="flex items-center gap-3 justify-self-start" aria-label={`${PROFILE.name}, back to top`}>
-                    <span className="grid h-9 w-9 place-items-center rounded-lg bg-ink text-[13px] font-semibold tracking-[0.02em] text-white">
+                    <span className="grid h-9 w-9 place-items-center rounded-lg bg-accent text-[13px] font-semibold tracking-[0.02em] text-white">
                         VS
                     </span>
                     <span className="leading-tight">
                         <span className="block text-[15px] font-semibold tracking-[-0.01em] text-ink">{PROFILE.shortName}</span>
-                        <span className="hidden text-[12.5px] text-ink-3 sm:block">Backend Developer</span>
+                        <span className="hidden text-[12px] text-ink-3 sm:block">{PROFILE.role}</span>
                     </span>
                 </a>
 
-                <nav aria-label="Primary" className="hidden lg:block">
-                    <ul className="flex items-center gap-0.5 rounded-full border border-line bg-surface/80 p-1 shadow-card">
+                <nav aria-label="Primary" className="hidden xl:block">
+                    <ul className="flex items-center gap-0.5">
                         {NAV_ITEMS.map((item) => {
                             const isActive = active === item.id;
                             return (
@@ -90,8 +91,8 @@ const SiteHeader = () => {
                                     <a
                                         href={`#${item.id}`}
                                         aria-current={isActive ? "true" : undefined}
-                                        className={`flex h-8 items-center rounded-full px-3.5 text-[14px] font-medium transition-colors ${
-                                            isActive ? "bg-subtle text-ink" : "text-ink-2 hover:text-ink"
+                                        className={`flex h-10 items-center rounded-md px-2.5 text-[13px] font-medium transition-colors ${
+                                            isActive ? "bg-accent-soft text-accent" : "text-ink-3 hover:bg-subtle hover:text-ink"
                                         }`}
                                     >
                                         {item.label}
@@ -102,12 +103,12 @@ const SiteHeader = () => {
                     </ul>
                 </nav>
 
-                <div className="flex items-center gap-1.5 justify-self-end">
+                <div className="flex shrink-0 items-center gap-1.5 justify-self-end">
                     <a
                         href={PROFILE.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hidden h-9 w-9 place-items-center rounded-lg text-ink-2 transition-colors hover:bg-subtle hover:text-ink sm:grid"
+                        className="hidden h-9 w-9 place-items-center rounded-lg text-ink-2 transition-colors hover:bg-subtle hover:text-ink sm:grid xl:hidden"
                         aria-label="GitHub"
                     >
                         <GitHubIcon size={18}/>
@@ -116,18 +117,21 @@ const SiteHeader = () => {
                         href={PROFILE.linkedinUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hidden h-9 w-9 place-items-center rounded-lg text-ink-2 transition-colors hover:bg-subtle hover:text-ink sm:grid"
+                        className="hidden h-9 w-9 place-items-center rounded-lg text-ink-2 transition-colors hover:bg-subtle hover:text-ink sm:grid xl:hidden"
                         aria-label="LinkedIn"
                     >
                         <LinkedInIcon size={17}/>
                     </a>
-                    <a href={PROFILE.resumeUrl} target="_blank" rel="noopener noreferrer" className="btn-primary ml-1.5 h-9 px-3.5">
+                    <a href={PROFILE.resumeUrl} target="_blank" rel="noopener noreferrer" className="btn-secondary ml-1.5 hidden min-h-9 px-3.5 py-1.5 sm:inline-flex">
                         Résumé
                         <ArrowUpRight size={15} aria-hidden="true"/>
                     </a>
+                    <a href="#contact" onClick={() => setOpen(false)} className="btn-primary ml-1.5 hidden min-h-9 px-3.5 py-1.5 md:inline-flex">
+                        <Mail size={15} aria-hidden="true"/>Contact
+                    </a>
                     <button
                         type="button"
-                        className="btn-icon ml-1.5 h-9 w-9 lg:hidden"
+                        className="btn-icon ml-1.5 h-11 w-11 xl:hidden"
                         aria-expanded={open}
                         aria-controls="mobile-nav"
                         aria-label={open ? "Close menu" : "Open menu"}
@@ -139,7 +143,7 @@ const SiteHeader = () => {
             </div>
 
             {open && (
-                <nav id="mobile-nav" aria-label="Primary" className="border-t border-line lg:hidden">
+                <nav id="mobile-nav" aria-label="Primary" className="border-t border-line xl:hidden">
                     <ul className="page-container py-2">
                         {NAV_ITEMS.map((item) => (
                             <li key={item.id} className="border-b border-line">

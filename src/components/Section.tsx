@@ -10,19 +10,15 @@ type SectionProps = {
 };
 
 const Section = ({id, title, lede, aside, children, className = ""}: SectionProps) => (
-    <section id={id} aria-labelledby={`${id}-title`} className={`py-14 sm:py-20 ${className}`}>
-        <div className="page-container">
-            <header className="mb-8 flex flex-col gap-4 sm:mb-10 md:flex-row md:items-end md:justify-between md:gap-8">
-                <div className="max-w-2xl">
-                    <h2 id={`${id}-title`} className="text-[30px] font-semibold tracking-[-0.025em] sm:text-[36px]">
-                        {title}
-                    </h2>
-                    {lede && <p className="mt-3 text-[16px] leading-relaxed text-ink-2 sm:text-[17px]">{lede}</p>}
-                </div>
-                {aside && <div className="shrink-0">{aside}</div>}
-            </header>
-            {children}
-        </div>
+    <section id={id} aria-labelledby={`${id}-title`} className={`pt-7 sm:pt-8 ${className}`}>
+        <header className="mb-3 flex flex-wrap items-end justify-between gap-x-4 gap-y-2 px-1">
+            <div className="max-w-2xl">
+                <h2 id={`${id}-title`} className="text-[21px] font-semibold leading-tight sm:text-[22px]">{title}</h2>
+                {lede && <p className="mt-1.5 text-[14px] leading-relaxed text-ink-3">{lede}</p>}
+            </div>
+            {aside}
+        </header>
+        {children}
     </section>
 );
 

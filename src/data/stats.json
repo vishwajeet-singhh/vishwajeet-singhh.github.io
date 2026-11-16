@@ -1,36 +1,84 @@
 {
-  "generatedAt": "2026-09-24T19:45:53.347Z",
+  "generatedAt": "2026-11-16T06:36:36.559Z",
   "timeZone": "Asia/Kolkata",
   "platforms": {
     "leetcode": {
       "handle": "recusant_byte",
       "url": "https://leetcode.com/u/recusant_byte/",
-      "total": 206,
+      "total": 346,
       "solved": {
-        "easy": 92,
-        "medium": 94,
-        "hard": 20
+        "easy": 144,
+        "medium": 168,
+        "hard": 34
       },
       "rating": {
-        "current": 1478,
-        "max": 1478,
-        "contests": 1,
-        "topPercent": 51.76
+        "current": 1778,
+        "max": 1778,
+        "contests": 12,
+        "topPercent": 9.45
       },
       "ratingHistory": [
         {
           "t": 1789266600,
           "rating": 1478
+        },
+        {
+          "t": 1789871400,
+          "rating": 1611
+        },
+        {
+          "t": 1790433000,
+          "rating": 1631
+        },
+        {
+          "t": 1790476200,
+          "rating": 1651
+        },
+        {
+          "t": 1791081000,
+          "rating": 1620
+        },
+        {
+          "t": 1791642600,
+          "rating": 1661
+        },
+        {
+          "t": 1791685800,
+          "rating": 1679
+        },
+        {
+          "t": 1792290600,
+          "rating": 1700
+        },
+        {
+          "t": 1792852200,
+          "rating": 1730
+        },
+        {
+          "t": 1792895400,
+          "rating": 1709
+        },
+        {
+          "t": 1793500200,
+          "rating": 1741
+        },
+        {
+          "t": 1794061800,
+          "rating": 1778
         }
       ],
       "languages": [
         {
           "name": "Java",
-          "count": 193
+          "count": 331
         },
         {
           "name": "Python3",
           "count": 23
+        },
+        {
+          "name": "MySQL",
+          "count": 2
         },
         {
           "name": "C++",
@@ -40,135 +88,151 @@
       "topics": [
         {
           "name": "Array",
-          "count": 125
+          "count": 194
         },
         {
           "name": "Matrix",
-          "count": 10
+          "count": 18
         },
         {
           "name": "String",
-          "count": 37
+          "count": 64
         },
         {
           "name": "Simulation",
-          "count": 12
+          "count": 18
         },
         {
           "name": "Enumeration",
-          "count": 9
+          "count": 14
         },
         {
           "name": "Sorting",
-          "count": 28
+          "count": 55
         },
         {
           "name": "Stack",
-          "count": 20
+          "count": 34
         },
         {
           "name": "Queue",
-          "count": 3
+          "count": 6
         },
         {
           "name": "Linked List",
-          "count": 12
+          "count": 18
         },
         {
           "name": "Two Pointers",
-          "count": 32
+          "count": 39
         },
         {
           "name": "Tree",
-          "count": 10
-        },
-        {
-          "name": "Binary Tree",
-          "count": 10
-        },
-        {
-          "name": "Hash Table",
-          "count": 41
-        },
-        {
-          "name": "Ordered Set",
-          "count": 1
-        },
-        {
-          "name": "Graph Theory",
-          "count": 2
-        },
-        {
-          "name": "Greedy",
           "count": 19
         },
         {
-          "name": "Binary Search",
-          "count": 20
+          "name": "Binary Tree",
+          "count": 18
         },
         {
-          "name": "Depth-First Search",
-          "count": 12
+          "name": "Hash Table",
+          "count": 56
         },
         {
-          "name": "Breadth-First Search",
-          "count": 6
+          "name": "Ordered Set",
+          "count": 3
         },
         {
-          "name": "Recursion",
-          "count": 8
-        },
-        {
-          "name": "Sliding Window",
-          "count": 16
-        },
-        {
-          "name": "Bit Manipulation",
-          "count": 12
-        },
-        {
-          "name": "Math",
-          "count": 52
-        },
-        {
-          "name": "Design",
-          "count": 6
-        },
-        {
-          "name": "Game Theory",
-          "count": 9
-        },
-        {
-          "name": "Backtracking",
-          "count": 2
-        },
-        {
-          "name": "Dynamic Programming",
-          "count": 24
-        },
-        {
-          "name": "Divide and Conquer",
+          "name": "Graph Theory",
           "count": 4
         },
         {
+          "name": "Greedy",
+          "count": 54
+        },
+        {
+          "name": "Binary Search",
+          "count": 26
+        },
+        {
+          "name": "Depth-First Search",
+          "count": 20
+        },
+        {
+          "name": "Breadth-First Search",
+          "count": 15
+        },
+        {
+          "name": "Recursion",
+          "count": 10
+        },
+        {
+          "name": "Sliding Window",
+          "count": 21
+        },
+        {
+          "name": "Bit Manipulation",
+          "count": 16
+        },
+        {
+          "name": "Math",
+          "count": 81
+        },
+        {
+          "name": "Design",
+          "count": 8
+        },
+        {
+          "name": "Brainteaser",
+          "count": 1
+        },
+        {
+          "name": "Database",
+          "count": 2
+        },
+        {
+          "name": "Data Stream",
+          "count": 1
+        },
+        {
+          "name": "Game Theory",
+          "count": 10
+        },
+        {
+          "name": "Backtracking",
+          "count": 6
+        },
+        {
+          "name": "Dynamic Programming",
+          "count": 43
+        },
+        {
+          "name": "Divide and Conquer",
+          "count": 8
+        },
+        {
           "name": "Union-Find",
-          "count": 3
+          "count": 8
+        },
+        {
+          "name": "Binary Indexed Tree",
+          "count": 4
         },
         {
           "name": "Segment Tree",
-          "count": 3
+          "count": 8
         },
         {
           "name": "Monotonic Stack",
-          "count": 5
+          "count": 6
         },
         {
           "name": "Monotonic Queue",
-          "count": 1
+          "count": 2
         },
         {
           "name": "Shortest Path",
-          "count": 1
+          "count": 2
         }
       ],
       "calendar": {
@@ -246,25 +310,78 @@
         "2026-09-21": 4,
         "2026-09-22": 4,
         "2026-09-23": 1,
-        "2026-09-24": 11
+        "2026-09-24": 12,
+        "2026-09-25": 6,
+        "2026-09-26": 24,
+        "2026-09-27": 3,
+        "2026-09-28": 7,
+        "2026-09-29": 14,
+        "2026-09-30": 13,
+        "2026-10-01": 3,
+        "2026-10-02": 1,
+        "2026-10-03": 6,
+        "2026-10-04": 5,
+        "2026-10-05": 1,
+        "2026-10-06": 2,
+        "2026-10-07": 6,
+        "2026-10-08": 3,
+        "2026-10-09": 8,
+        "2026-10-10": 15,
+        "2026-10-11": 4,
+        "2026-10-12": 1,
+        "2026-10-13": 4,
+        "2026-10-14": 3,
+        "2026-10-15": 10,
+        "2026-10-16": 8,
+        "2026-10-17": 2,
+        "2026-10-18": 13,
+        "2026-10-19": 6,
+        "2026-10-20": 4,
+        "2026-10-21": 1,
+        "2026-10-22": 1,
+        "2026-10-23": 2,
+        "2026-10-24": 6,
+        "2026-10-25": 3,
+        "2026-10-26": 2,
+        "2026-10-27": 5,
+        "2026-10-28": 4,
+        "2026-10-29": 10,
+        "2026-10-30": 8,
+        "2026-10-31": 3,
+        "2026-11-01": 12,
+        "2026-11-02": 1,
+        "2026-11-03": 2,
+        "2026-11-04": 1,
+        "2026-11-05": 3,
+        "2026-11-06": 1,
+        "2026-11-07": 5,
+        "2026-11-08": 1,
+        "2026-11-09": 1,
+        "2026-11-10": 4,
+        "2026-11-11": 1,
+        "2026-11-12": 4,
+        "2026-11-13": 1,
+        "2026-11-14": 2,
+        "2026-11-15": 3,
+        "2026-11-16": 1
       },
-      "fetchedAt": "2026-09-24T19:45:46.279Z"
+      "fetchedAt": "2026-11-16T06:36:36.347Z"
     },
     "codeforces": {
       "handle": "vishy_singh",
       "url": "https://codeforces.com/profile/vishy_singh",
-      "total": 109,
+      "total": 195,
       "solved": {
-        "easy": 94,
-        "medium": 14,
-        "hard": 1
+        "easy": 157,
+        "medium": 36,
+        "hard": 2
       },
       "rating": {
-        "current": 1349,
-        "max": 1385,
+        "current": 1357,
+        "max": 1487,
         "rank": "pupil",
-        "maxRank": "pupil",
-        "contests": 12
+        "maxRank": "specialist",
+        "contests": 22
       },
       "ratingHistory": [
         {
@@ -313,68 +430,136 @@
         },
         {
           "t": 1790010300,
-          "rating": 1349
+          "rating": 1356
+        },
+        {
+          "t": 1790355000,
+          "rating": 1331
+        },
+        {
+          "t": 1790442300,
+          "rating": 1345
+        },
+        {
+          "t": 1791393300,
+          "rating": 1260
+        },
+        {
+          "t": 1791655500,
+          "rating": 1315
+        },
+        {
+          "t": 1791750900,
+          "rating": 1316
+        },
+        {
+          "t": 1791995700,
+          "rating": 1322
+        },
+        {
+          "t": 1792258500,
+          "rating": 1487
+        },
+        {
+          "t": 1792848000,
+          "rating": 1418
+        },
+        {
+          "t": 1793033400,
+          "rating": 1441
+        },
+        {
+          "t": 1793465400,
+          "rating": 1357
         }
       ],
       "topics": [
         {
           "name": "math",
-          "count": 40
+          "count": 72
         },
         {
           "name": "implementation",
-          "count": 39
+          "count": 70
         },
         {
           "name": "greedy",
-          "count": 37
+          "count": 66
         },
         {
           "name": "brute force",
-          "count": 28
+          "count": 42
         },
         {
           "name": "constructive algorithms",
-          "count": 20
+          "count": 35
         },
         {
           "name": "sortings",
-          "count": 13
+          "count": 23
         },
         {
           "name": "strings",
-          "count": 11
+          "count": 23
         },
         {
           "name": "number theory",
-          "count": 11
-        },
-        {
-          "name": "games",
-          "count": 6
-        },
-        {
-          "name": "two pointers",
-          "count": 6
+          "count": 17
         },
         {
           "name": "data structures",
-          "count": 5
+          "count": 10
         },
         {
-          "name": "bitmasks",
-          "count": 2
+          "name": "games",
+          "count": 10
         },
         {
-          "name": "geometry",
-          "count": 2
+          "name": "dp",
+          "count": 9
+        },
+        {
+          "name": "two pointers",
+          "count": 9
         },
         {
           "name": "binary search",
-          "count": 1
+          "count": 8
+        },
+        {
+          "name": "bitmasks",
+          "count": 6
         },
         {
           "name": "dfs and similar",
+          "count": 5
+        },
+        {
+          "name": "hashing",
+          "count": 4
+        },
+        {
+          "name": "graphs",
+          "count": 4
+        },
+        {
+          "name": "trees",
+          "count": 3
+        },
+        {
+          "name": "combinatorics",
+          "count": 3
+        },
+        {
+          "name": "geometry",
+          "count": 3
+        },
+        {
+          "name": "shortest paths",
+          "count": 2
+        },
+        {
+          "name": "graph matchings",
           "count": 1
         },
         {
@@ -382,23 +567,7 @@
           "count": 1
         },
         {
-          "name": "combinatorics",
-          "count": 1
-        },
-        {
-          "name": "graphs",
-          "count": 1
-        },
-        {
           "name": "probabilities",
-          "count": 1
-        },
-        {
-          "name": "dp",
-          "count": 1
-        },
-        {
-          "name": "hashing",
           "count": 1
         }
       ],
@@ -443,9 +612,32 @@
         "2026-09-21": 6,
         "2026-09-22": 1,
         "2026-09-23": 1,
-        "2026-09-24": 5
+        "2026-09-24": 5,
+        "2026-09-25": 4,
+        "2026-09-26": 7,
+        "2026-09-27": 17,
+        "2026-09-28": 14,
+        "2026-09-29": 10,
+        "2026-09-30": 16,
+        "2026-10-01": 3,
+        "2026-10-03": 1,
+        "2026-10-04": 5,
+        "2026-10-06": 2,
+        "2026-10-07": 2,
+        "2026-10-08": 8,
+        "2026-10-09": 6,
+        "2026-10-10": 9,
+        "2026-10-11": 11,
+        "2026-10-12": 4,
+        "2026-10-13": 3,
+        "2026-10-14": 6,
+        "2026-10-17": 6,
+        "2026-10-24": 3,
+        "2026-10-26": 3,
+        "2026-10-29": 1,
+        "2026-10-31": 5
       },
-      "fetchedAt": "2026-09-24T19:45:46.331Z"
+      "fetchedAt": "2026-11-16T06:36:36.559Z"
     },
     "codechef": {
       "handle": "recusant_byte",

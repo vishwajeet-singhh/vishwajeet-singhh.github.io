@@ -1,11 +1,11 @@
-// Everything hand-written about me lives here. Platform numbers come from
+// Shared profile and portfolio copy. Platform numbers come from
 // stats.json, which scripts/fetch-stats.mjs regenerates on every deploy.
 // Copy is British English (organisation, licence, normalised).
 
 export const PROFILE = {
     name: "Vishwajeet Pratap Singh",
     shortName: "Vishwajeet Singh",
-    role: "Software Engineer",
+    role: "Backend Developer",
     company: "Maya Data Privacy",
     location: "India · Remote",
     email: "vishwajeet.sage@gmail.com",
@@ -15,6 +15,19 @@ export const PROFILE = {
     linkedinUrl: "https://www.linkedin.com/in/vishwajeetsage/",
 } as const;
 
+export const ABOUT = [
+    "I'm a Backend Developer with nearly three years of experience designing, building and improving backend systems. I focus on clean, efficient solutions that remain reliable and maintainable as they scale.",
+    "My work spans API design, databases, data pipelines and production reliability. I've used Java with Spring Boot and Python with Flask to build these systems, choosing tools to fit the problem.",
+    "I'm developing my skills in design patterns, high-level design (HLD) and low-level design (LLD). I keep learning, question assumptions and enjoy taking on challenging backend problems. I'm also keen to explore Kotlin, Go and Rust.",
+] as const;
+
+export const ENGINEERING_FOCUS = [
+    {title: "API & service design", detail: "Production APIs, integrations and asynchronous processing."},
+    {title: "Data & performance", detail: "Query optimisation, bulk operations and connection pools."},
+    {title: "Scalability & reliability", detail: "Shared rate limits, concurrency and crash recovery."},
+    {title: "Security & ownership", detail: "Licensing, access control and services in production."},
+] as const;
+
 export type Highlight = {
     value: string;
     label: string;
@@ -22,7 +35,7 @@ export type Highlight = {
 };
 
 export const HIGHLIGHTS: Highlight[] = [
-    {value: "25+", label: "Production REST APIs", detail: "Java and Spring Boot"},
+    {value: "25+", label: "Production REST APIs", detail: "designed and delivered"},
     {value: "~95%", label: "Shorter pipeline runtime", detail: "on datasets of 100k+ tables"},
     {value: "500+", label: "Users and B2B tenants", detail: "on the licensing and IAM service"},
     {value: "~50%", label: "Shorter review turnaround", detail: "after rolling out Helix"},
@@ -44,54 +57,54 @@ export type Role = {
 
 export const ROLES: Role[] = [
     {
-        title: "Software Engineer",
+        title: "Backend Developer",
         company: "Maya Data Privacy",
         period: "Jan 2024 – Present",
         location: "Remote",
         summary:
-            "Backend developer and Scrum Master on a product team of about 20 people across UI, AI, backend, product and QA.",
+            "Build and improve backend services for data-intensive products, with ownership across API design, performance, reliability and access control.",
         groups: [
             {
                 theme: "APIs & data",
                 points: [
-                    "Designed and built **25+** production REST APIs in Java and Spring Boot, backed by PostgreSQL, Oracle and SAP HANA.",
+                    "Delivered **25+ production REST APIs** by building services integrated with PostgreSQL, Oracle and HANA.",
                 ],
             },
             {
                 theme: "Performance",
                 points: [
-                    "Reduced pipeline runtime by **~95%** on datasets of 100k+ tables through predicate pushdown, batch-concurrency tuning and per-tenant HikariCP pool sizing.",
-                    "Made bulk inserts **~50%** faster with a journaling pattern for high-volume writes, without compromising data integrity.",
+                    "Reduced pipeline runtime by **~95%** on datasets of **100k+ tables** by applying predicate pushdown and tuning batch concurrency and per-tenant connection pools.",
+                    "Improved bulk-insert performance by **~50%** and enabled crash-safe recovery by implementing a journaling pattern.",
                 ],
             },
             {
-                theme: "Reliability",
+                theme: "Reliability & scale",
                 points: [
-                    "Built crash-safe recovery for long-running bulk operations on PostgreSQL, Oracle and SAP HANA, using the same journaling pattern.",
-                    "Built bulk edit and delete for large tables. Matching rows are snapshotted up front to prevent pagination drift, and composite-key deduplication stops rows from being processed twice.",
+                    "Prevented pagination drift and duplicate processing in bulk edits and deletes by snapshotting matching rows and deduplicating composite keys.",
+                    "Built configurable request and token limits across AI models by coordinating usage through Redis sliding windows and atomic Lua scripts.",
                 ],
             },
             {
                 theme: "Security & licensing",
                 points: [
-                    "Designed, shipped and operated the licensing service for on-prem and B2B installations as its sole engineer. Licences are generated and verified with PEM key pairs, behind a Spring Security IAM layer (JWT, RBAC, MFA, OAuth2) used by **500+** SaaS users and B2B tenants.",
+                    "Supported **500+ SaaS users and B2B tenants** by building and operating a licensing service and IAM layer, using PEM-based keys, JWT, RBAC, MFA and OAuth2.",
                 ],
             },
             {
                 theme: "Developer tooling",
                 points: [
-                    "Rolled out Helix, my open-source AI pull-request reviewer, across the team's GitHub organisation. Review turnaround dropped by roughly half.",
+                    "Cut review turnaround by **~50%** by deploying Helix, my open-source AI pull-request reviewer, across the team's GitHub organisation.",
                 ],
             },
         ],
     },
     {
-        title: "Software Engineer Intern",
+        title: "Backend Developer Intern",
         company: "Maya Data Privacy",
         period: "Dec 2023",
         location: "Remote",
         summary:
-            "Worked in the production codebase from the start, learning the team's Git workflow and coding conventions.",
+            "Contributed to the production codebase while learning the team's Git workflow and coding conventions.",
         groups: [],
     },
 ];
@@ -108,7 +121,7 @@ export const ROLE_STACK = [
     "SQLAlchemy",
     "PostgreSQL",
     "Oracle",
-    "SAP HANA",
+    "HANA",
     "Kafka",
     "Redis",
     "HikariCP",
@@ -130,23 +143,27 @@ export type StackGroup = {
     items: string[];
 };
 
+// Concrete skills from the CV, including tools demonstrated in its experience and project entries.
 export const STACK: StackGroup[] = [
-    {title: "Languages", items: ["Java", "Python", "SQL"]},
     {
-        title: "Backend",
-        items: ["Spring Boot", "Spring Security", "Spring Data JPA", "Spring Batch", "Hibernate", "JDBC", "Flask", "SQLAlchemy", "Pydantic", "REST APIs", "Microservices", "Webhooks"],
+        title: "Languages",
+        items: ["Java", "Python", "SQL", "Lua"],
     },
     {
-        title: "Data",
-        items: ["PostgreSQL", "Oracle", "SAP HANA", "Redis", "Kafka", "HikariCP", "Alembic"],
+        title: "Backend & APIs",
+        items: ["Spring Boot", "Spring Data JPA", "Flask", "REST APIs", "Microservices", "Webhooks"],
     },
     {
-        title: "Security",
-        items: ["JWT", "OAuth2", "RBAC", "MFA", "PEM key pairs"],
+        title: "Databases & caching",
+        items: ["PostgreSQL", "Oracle", "HANA", "Redis", "HikariCP"],
     },
     {
-        title: "Infra & tooling",
-        items: ["GCP", "Docker", "Linux", "Nginx", "GitHub Actions", "Maven", "Gradle", "Prometheus", "JUnit", "Log4j2", "Lombok", "Postman", "Git"],
+        title: "Cloud & deployment",
+        items: ["Linux", "Docker", "GCP", "Nginx"],
+    },
+    {
+        title: "Build, tools & logging",
+        items: ["Git", "GitHub", "Maven", "Gradle", "Postman", "Lombok", "Log4j2"],
     },
 ];
 
@@ -156,11 +173,11 @@ export const HELIX = {
     url: "https://github.com/vishwajeet-singhh/helix",
     description:
         "Helix reviews GitHub pull requests with a local LLM served by Ollama, so code never leaves your own infrastructure. It is published as a public Docker image: a team can pull it, run it on their own servers and connect it to their GitHub organisation.",
-    usage: "My team uses it across our GitHub organisation, where review turnaround has dropped by roughly half.",
+    usage: "Cut review turnaround by roughly 50% by deploying Helix across my team's GitHub organisation.",
     points: [
-        "Acknowledges the webhook with 202 Accepted and reviews asynchronously, so the webhook never times out.",
-        "Posts a single review: an overview, a verdict and inline comments for warning- and critical-level findings only.",
-        "Works with any Ollama model. Qwen2.5-Coder 7B is the default; 14B is slower but finds more bugs.",
+        "Keeps webhook handling responsive by returning 202 Accepted and processing reviews asynchronously.",
+        "Keeps feedback focused by posting one review with a verdict and inline comments for warning- and critical-level findings.",
+        "Keeps inference on your infrastructure by running a configurable model through Ollama.",
     ],
     stack: ["Java", "Spring Boot", "Maven", "Docker", "GitHub App", "Webhooks", "Ollama", "LLM", "Nginx", "GCP"],
 };

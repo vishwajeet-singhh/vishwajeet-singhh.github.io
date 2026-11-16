@@ -29,7 +29,7 @@ export default {
                 positive: token("positive"),
             },
             maxWidth: {
-                page: "1160px",
+                page: "1320px",
             },
             boxShadow: {
                 card: "0 1px 2px rgb(15 17 21 / 0.04), 0 1px 1px rgb(15 17 21 / 0.02)",

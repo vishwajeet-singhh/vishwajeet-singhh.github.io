@@ -53,18 +53,17 @@ const Contact = () => {
         <>
             <Section id="contact" title="Contact" lede="Email is the best way to reach me.">
                 <div className="card card-pad">
-                    <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+                    <div className="flex flex-col gap-5">
                         <div className="min-w-0">
                             <p className="text-[14px] text-ink-3">Email</p>
                             <a
                                 href={`mailto:${PROFILE.email}`}
-                                className="mt-1 block break-all text-[22px] font-semibold tracking-[-0.02em] transition-colors hover:text-accent sm:text-[28px]"
+                                className="mt-1 block break-all text-[19px] font-semibold tracking-[-0.02em] transition-colors hover:text-accent sm:text-[24px]"
                             >
                                 {PROFILE.email}
                             </a>
                             <p className="mt-3 text-[15px] leading-relaxed text-ink-2">
-                                Backend roles, hard systems problems or a second pair of eyes on a design: my inbox is
-                                open.
+                                Have a backend role, a systems problem or a project in mind? Let’s talk.
                             </p>
                         </div>
                         <div className="flex shrink-0 flex-wrap gap-3">
@@ -102,8 +101,8 @@ const Contact = () => {
                 </div>
             </Section>
 
-            <footer className="page-container">
-                <div className="flex flex-col gap-2 border-t border-line py-8 text-[13px] text-ink-3 sm:flex-row sm:justify-between">
+            <footer>
+                <div className="flex flex-col gap-2 py-6 text-[13px] text-ink-3 sm:flex-row sm:flex-wrap sm:justify-between">
                     <p>© {new Date().getFullYear()} {PROFILE.name}</p>
                     {SHOW_PROBLEM_SOLVING && <p>Coding stats updated {formatUpdated(stats.generatedAt, now)}</p>}
                 </div>

@@ -9,19 +9,19 @@
 :root {
     color-scheme: light;
 
-    --page: 248 248 246;
+    --page: 243 242 239;
     --surface: 255 255 255;
-    --subtle: 243 243 240;
-    --line: 230 229 224;
-    --line-strong: 213 212 206;
+    --subtle: 247 248 250;
+    --line: 222 224 227;
+    --line-strong: 190 195 201;
 
-    --ink: 15 17 21;
-    --ink-2: 60 65 73;
-    --ink-3: 107 112 121;
+    --ink: 25 25 25;
+    --ink-2: 67 73 80;
+    --ink-3: 95 102 109;
 
-    --accent: 71 88 224;
-    --accent-strong: 44 53 163;
-    --accent-soft: 238 241 254;
+    --accent: 10 102 194;
+    --accent-strong: 0 65 130;
+    --accent-soft: 234 243 252;
     --positive: 18 161 80;
 
     /* LeetCode-style difficulty, stepped so all three read on white (validated for CVD). */
@@ -83,44 +83,56 @@
 
 @layer components {
     .page-container {
-        @apply mx-auto w-full max-w-page px-4 sm:px-6 lg:px-8;
+        @apply mx-auto w-full max-w-page px-4 sm:px-6;
+    }
+
+    .profile-cover {
+        height: 128px;
+        background: #deebf5;
+        border-bottom: 1px solid #cfdfed;
     }
 
     .card {
-        @apply rounded-2xl border border-line bg-surface shadow-card;
+        @apply min-w-0 rounded-xl border border-line bg-surface;
     }
 
     .btn {
-        @apply inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-lg px-4 text-[14px] font-medium transition-colors duration-150;
+        @apply inline-flex min-h-10 items-center justify-center gap-2 whitespace-nowrap rounded-full px-5 py-2 text-[14px] font-semibold transition-colors duration-150;
     }
 
     .btn-primary {
-        @apply btn bg-ink text-white hover:bg-ink/85;
+        @apply btn bg-accent text-white hover:bg-accent-strong;
     }
 
     .btn-secondary {
-        @apply btn border border-line-strong bg-surface text-ink hover:border-ink/40 hover:bg-subtle;
+        @apply btn border border-accent bg-surface text-accent hover:bg-accent-soft hover:text-accent-strong;
     }
 
     .btn-icon {
-        @apply inline-flex h-10 w-10 items-center justify-center rounded-lg border border-line-strong bg-surface text-ink-2 transition-colors duration-150 hover:border-ink/40 hover:text-ink;
+        @apply inline-flex h-10 w-10 items-center justify-center rounded-full border border-line-strong bg-surface text-ink-2 transition-colors duration-150 hover:border-ink/40 hover:text-ink;
     }
 
     .chip {
-        @apply inline-flex items-center rounded-md border border-line bg-subtle px-2 py-0.5 text-[13px] leading-5 text-ink-2;
+        @apply inline-flex items-center rounded-md border border-line bg-subtle px-2 py-1 text-[12px] leading-5 text-ink-2;
     }
 
     /* Every card uses the same inset so content lines up down the page. */
     .card-pad {
-        @apply p-6 sm:p-8;
+        @apply p-5 sm:p-6;
     }
 
     .card-pad-x {
-        @apply px-6 sm:px-8;
+        @apply px-5 sm:px-6;
     }
 
     .link {
         @apply font-medium text-accent underline decoration-accent/30 underline-offset-4 transition-colors hover:decoration-accent;
+    }
+}
+
+@media (min-width: 640px) {
+    .profile-cover {
+        height: 192px;
     }
 }
 

@@ -84,15 +84,15 @@ const ProblemSolving = () => {
         <Section
             id="problem-solving"
             title="Problem solving"
-            lede={`Problems I have solved on ${formatPlatformNames(platforms)}. The figures come straight from each platform and stay up to date on their own. Difficulty is grouped into ${platforms.includes("leetcode") ? "LeetCode's " : ""}Easy, Medium and Hard levels.`}
+            lede={`Practice and contest activity on ${formatPlatformNames(platforms)}.`}
             aside={<StatsFreshness/>}
         >
             <div className="space-y-6">
                 {/* Overview */}
-                <div className="card grid lg:grid-cols-[1.15fr_1fr]">
+                <div className="card grid sm:grid-cols-[1.15fr_1fr]">
                     <div className="card-pad">
                         <p className="text-[14px] font-medium text-ink-2">Problems solved</p>
-                        <p className="mt-2 text-[64px] font-semibold leading-none tracking-[-0.025em] sm:text-[80px]">
+                        <p className="mt-2 text-[48px] font-semibold leading-none tracking-[-0.025em] sm:text-[56px]">
                             {formatNumber(total)}
                         </p>
                         <div className="mt-8">
@@ -105,7 +105,7 @@ const ProblemSolving = () => {
                             />
                         </div>
                     </div>
-                    <div className="card-pad border-t border-line lg:border-l lg:border-t-0">
+                    <div className="card-pad border-t border-line sm:border-l sm:border-t-0">
                         <p className="text-[14px] font-medium text-ink-2">By platform</p>
                         <div className="mt-6">
                             <BarList rows={byPlatform} label="Problems solved per platform"/>
@@ -125,7 +125,7 @@ const ProblemSolving = () => {
 
                 {/* Topics + languages */}
                 {(topics.length > 0 || showLanguagesOrContests) && (
-                    <div className={`grid gap-6 ${topics.length > 0 && showLanguagesOrContests ? "lg:grid-cols-[1.6fr_1fr]" : ""}`}>
+                    <div className={`grid gap-6 ${topics.length > 0 && showLanguagesOrContests ? "xl:grid-cols-[1.2fr_1fr]" : ""}`}>
                         {topics.length > 0 && (
                             <div className="card card-pad">
                                 <h3 className="text-[18px] font-semibold">Topics</h3>

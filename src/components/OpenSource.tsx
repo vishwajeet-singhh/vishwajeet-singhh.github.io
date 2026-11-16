@@ -10,15 +10,15 @@ import {formatNumber} from "@/lib/stats";
 
 const FLOW = [
     {icon: GitPullRequest, title: "GitHub", note: "pull_request webhook"},
-    {icon: Boxes, title: "Helix", note: "Spring Boot, async worker"},
-    {icon: Cpu, title: "Ollama", note: "Qwen2.5-Coder, local"},
-    {icon: MessageSquareCode, title: "PR review", note: "verdict + inline comments"},
+    {icon: Boxes, title: "Helix", note: "Async review service"},
+    {icon: Cpu, title: "Ollama", note: "Local model inference"},
+    {icon: MessageSquareCode, title: "PR review", note: "Verdict + inline comments"},
 ];
 
 const FlowNode = ({item}: { item: (typeof FLOW)[number] }) => {
     const Icon = item.icon;
     return (
-        <div className="flex min-w-0 flex-1 items-center gap-3 rounded-xl border border-line bg-surface px-3.5 py-3 shadow-card lg:flex-col lg:items-start lg:gap-2">
+        <div className="flex min-w-0 flex-1 items-center gap-3 rounded-xl border border-line bg-surface px-3.5 py-3 xl:flex-col xl:items-start xl:gap-2">
             <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-accent-soft text-accent-strong">
                 <Icon size={16} aria-hidden="true"/>
             </span>
@@ -31,22 +31,22 @@ const FlowNode = ({item}: { item: (typeof FLOW)[number] }) => {
 };
 
 const Arrow = ({label}: { label?: string }) => (
-    <div className="flex shrink-0 items-center justify-center gap-2 text-ink-3 lg:flex-col lg:gap-1" aria-hidden="true">
-        <ArrowDown size={16} className="lg:hidden"/>
-        <ArrowRight size={16} className="hidden lg:block"/>
+    <div className="flex shrink-0 items-center justify-center gap-2 text-ink-3 xl:flex-col xl:gap-1" aria-hidden="true">
+        <ArrowDown size={16} className="xl:hidden"/>
+        <ArrowRight size={16} className="hidden xl:block"/>
         {label && <span className="font-mono text-[10.5px] text-ink-3">{label}</span>}
     </div>
 );
 
 /** GitHub → [ Helix → Ollama ] → review, with the self-hosted boundary drawn around the middle. */
 const HelixFlow = () => (
-    <figure className="rounded-2xl border border-line bg-subtle/70 p-4 sm:p-5">
-        <div className="flex flex-col gap-2 lg:flex-row lg:items-stretch">
+    <figure className="rounded-xl border border-line bg-subtle/70 p-4 sm:p-5">
+        <div className="flex flex-col gap-2 xl:flex-row xl:items-stretch">
             <FlowNode item={FLOW[0]}/>
             <Arrow label="202"/>
-            <div className="relative flex flex-col gap-2 rounded-xl border border-dashed border-accent/50 bg-accent-soft/40 p-2 pt-7 lg:flex-[2.2] lg:flex-row lg:items-stretch">
+            <div className="relative flex flex-col gap-2 rounded-xl border border-dashed border-accent/50 bg-accent-soft/40 p-2 pt-7 xl:flex-[2.2] xl:flex-row xl:items-stretch">
                 <span className="absolute left-3 top-2 font-mono text-[10.5px] uppercase tracking-[0.1em] text-accent-strong">
-                    your infrastructure
+                    Self-hosted
                 </span>
                 {FLOW.slice(1, 3).map((item, i) => (
                     <Fragment key={item.title}>
@@ -59,7 +59,7 @@ const HelixFlow = () => (
             <FlowNode item={FLOW[3]}/>
         </div>
         <figcaption className="mt-3 text-[12.5px] text-ink-3">
-            The diff is sent only to your own Ollama instance, never to a third-party API.
+            Code is reviewed by the Ollama model running on your own infrastructure.
         </figcaption>
     </figure>
 );
@@ -100,7 +100,7 @@ const GitHubActivity = () => {
                 {figures.map((f) => (
                     <div key={f.label} className="flex flex-col-reverse">
                         <dt className="mt-2 text-[14px] text-ink-3">{f.label}</dt>
-                        <dd className="text-[56px] font-semibold leading-none tracking-[-0.025em] sm:text-[72px]">
+                        <dd className="text-[36px] font-semibold leading-none tracking-[-0.025em] sm:text-[44px]">
                             {f.value}
                         </dd>
                     </div>
@@ -135,23 +135,22 @@ const GitHubActivity = () => {
 const OpenSource = () => (
     <Section
         id="open-source"
-        title="Open source"
-        lede="Projects I build and maintain outside work."
+        title="Projects & open source"
+        lede="Engineering projects I build, use and maintain."
     >
-        <div className="space-y-6">
+        <div className="space-y-4">
             <article className="card card-pad">
                 <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                     <div>
                         <div className="flex flex-wrap items-center gap-2.5">
-                            <h3 className="text-[26px] font-semibold">{HELIX.name}</h3>
+                            <h3 className="text-[24px] font-semibold">{HELIX.name}</h3>
                             <span className="rounded-full bg-accent-soft px-2.5 py-0.5 text-[12px] font-medium text-accent-strong">
-                                Open source
+                                Featured project
                             </span>
-                            <span className="chip">Docker image</span>
                         </div>
                         <p className="mt-1 text-[16px] text-ink-2">{HELIX.tagline}</p>
                     </div>
-                    <a href={HELIX.url} target="_blank" rel="noopener noreferrer" className="btn-primary self-start">
+                    <a href={HELIX.url} target="_blank" rel="noopener noreferrer" className="btn-secondary self-start">
                         <GitHubIcon size={16}/>
                         View source
                         <ArrowUpRight size={16} aria-hidden="true"/>
@@ -162,10 +161,10 @@ const OpenSource = () => (
                     <HelixFlow/>
                 </div>
 
-                <div className="mt-8 grid gap-8 lg:grid-cols-[1.1fr_1fr]">
+                <div className="mt-6 space-y-5">
                     <div>
-                        <p className="text-[15.5px] leading-relaxed text-ink-2">{HELIX.description}</p>
-                        <p className="mt-4 text-[15.5px] leading-relaxed text-ink-2">{HELIX.usage}</p>
+                        <p className="text-[15px] leading-relaxed text-ink-2">{HELIX.description}</p>
+                        <p className="mt-4 text-[15px] leading-relaxed text-ink-2">{HELIX.usage}</p>
                     </div>
                     <ul className="space-y-3">
                         {HELIX.points.map((point) => (
@@ -177,7 +176,7 @@ const OpenSource = () => (
                     </ul>
                 </div>
 
-                <ul className="mt-8 flex flex-wrap gap-1.5 border-t border-line pt-6" aria-label="Helix tech stack">
+                <ul className="mt-6 flex flex-wrap gap-1.5 border-t border-line pt-4" aria-label="Helix tech stack">
                     {HELIX.stack.map((tech) => (
                         <li key={tech} className="chip">
                             {tech}
@@ -188,10 +187,10 @@ const OpenSource = () => (
 
             <GitHubActivity/>
 
-            <p className="text-center text-[14px] text-ink-3">
-                More on{" "}
+            <p className="px-1 text-[13px] text-ink-3">
+                More projects on{" "}
                 <a href={PROFILE.githubUrl} target="_blank" rel="noopener noreferrer" className="link">
-                    github.com/vishwajeet-singhh
+                    GitHub
                 </a>
             </p>
         </div>
