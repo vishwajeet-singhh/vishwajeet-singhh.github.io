@@ -18,7 +18,7 @@ const statements = [
         .filter(([, data]) => data)
         .map(([name, data]) => {
             const fetchedAt = Date.parse(data.fetchedAt ?? snapshot.generatedAt);
-            // checked_at = fetched_at, so the first visit after seeding refreshes anything older than 5 minutes.
+            // checked_at = fetched_at, so the first visit after seeding refreshes anything older than one minute.
             return `INSERT OR REPLACE INTO sources (name, data, fetched_at, checked_at) VALUES (${sqlString(name)}, ${sqlString(JSON.stringify(data))}, ${fetchedAt}, ${fetchedAt});`;
         }),
 ];

@@ -10,7 +10,7 @@ export const STATS_API_URL = (import.meta.env.VITE_STATS_API_URL ?? "").replace(
 /** GET /stats */
 export type StatsResponse = {
     stats: Stats;
-    /** Sources nobody has refreshed in the last few minutes. */
+    /** Sources nobody has attempted to refresh in the last minute. */
     stale: SourceName[];
 };
 

@@ -14,15 +14,15 @@ const Hero = () => {
     const rank = codeforces?.rating.rank?.replace(/\b\w/g, (letter) => letter.toUpperCase());
     const rating = leetcode?.rating?.current;
     const codingProfiles = [
-        ...(codeforces ? [{
-            id: "codeforces", name: "Codeforces", Icon: CodeforcesIcon, url: codeforces.url,
-            label: "Rank", value: rank ?? "—", solved: codeforces.total,
-            accessibleLabel: rank ? `Codeforces rank: ${rank}; ${codeforces.total} problems solved` : "Codeforces profile; rank unavailable",
-        }] : []),
         ...(leetcode ? [{
             id: "leetcode", name: "LeetCode", Icon: LeetCodeIcon, url: leetcode.url,
             label: "Rating", value: rating != null ? formatNumber(rating) : "—", solved: leetcode.total,
             accessibleLabel: rating != null ? `LeetCode contest rating: ${rating}; ${leetcode.total} problems solved` : "LeetCode profile; contest rating unavailable",
+        }] : []),
+        ...(codeforces ? [{
+            id: "codeforces", name: "Codeforces", Icon: CodeforcesIcon, url: codeforces.url,
+            label: "Rank", value: rank ?? "—", solved: codeforces.total,
+            accessibleLabel: rank ? `Codeforces rank: ${rank}; ${codeforces.total} problems solved` : "Codeforces profile; rank unavailable",
         }] : []),
     ];
     const hasProfiles = codingProfiles.length > 0;
@@ -34,7 +34,7 @@ const Hero = () => {
                      className="absolute inset-0 h-full w-full object-cover object-[65%_center] sm:object-center"/>
                 <span
                     className="absolute left-5 top-5 font-mono text-[10px] font-medium uppercase tracking-[0.16em] text-accent-strong sm:left-7 sm:text-[11px]">
-                    Backend engineering
+                    Backend development
                 </span>
             </div>
             <div
@@ -47,12 +47,14 @@ const Hero = () => {
                     <div className="mt-4">
                         <h1 id="profile-name"
                             className="text-[28px] font-semibold leading-tight sm:text-[32px]">{PROFILE.name}</h1>
-                        <p className="mt-1 text-[19px] font-medium text-ink sm:text-[20px]">{PROFILE.role}</p>
-                        <p className="mt-2 text-[14px] text-ink-2">REST APIs <span className="mx-1.5 text-line-strong"
-                                                                                   aria-hidden="true">|</span> Microservices
+                        <p className="mt-1 text-[17px] font-medium text-ink sm:text-[18px]">
+                            Software Development Engineer-1
                         </p>
-                        <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-ink-2">
-                            I design, build and improve the systems behind the product.
+                        <p className="mt-3 text-[14px] leading-relaxed text-ink-2">
+                            Java · Python · Spring Boot · REST APIs · Microservices · Databases
+                        </p>
+                        <p className="mt-3 text-[15px] leading-relaxed text-ink-2">
+                            Backend Developer with ~3 years of experience building and improving backend services.
                         </p>
                         <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-[12px] text-ink-3">
                             <p className="inline-flex items-center gap-1.5"><MapPin size={14}

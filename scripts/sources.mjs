@@ -1,7 +1,7 @@
 /**
  * Fetches problem-solving and GitHub activity. Shared by two runtimes:
  *   - scripts/fetch-stats.mjs (Node, at build time) → src/data/stats.json
- *   - worker/ (Cloudflare Worker, on visits, at most every 5 min) → the live stats API
+ *   - worker/ (Cloudflare Worker, on visits, at most once per minute) → the live stats API
  * so it only uses web-standard APIs (fetch, Intl, AbortSignal).
  *
  * Every source is fetched independently. If one fails (rate limit, Cloudflare
@@ -36,7 +36,7 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 // fixed subrequest budget and can't afford to.
 const settings = {retries: 2, maxRatingLookups: Infinity};
 
-async function request(url, {json = true, retries = settings.retries, ...init} = {}) {
+async function request(url, {json = true, retries = settings.retries, retryDelayMs = 1_000, ...init} = {}) {
     let lastError;
     for (let attempt = 0; attempt <= retries; attempt++) {
         try {
@@ -49,7 +49,7 @@ async function request(url, {json = true, retries = settings.retries, ...init} =
             return json ? await res.json() : await res.text();
         } catch (error) {
             lastError = error;
-            if (attempt < retries) await sleep(1_000 * (attempt + 1));
+            if (attempt < retries) await sleep(retryDelayMs * (attempt + 1));
         }
     }
     throw new Error(`${url} → ${lastError?.message ?? lastError}`);
@@ -192,14 +192,17 @@ async function fetchLeetCode(handle) {
 
 async function codeforces(method, params) {
     const qs = new URLSearchParams(params).toString();
-    const body = await request(`https://codeforces.com/api/${method}?${qs}`);
+    const body = await request(`https://codeforces.com/api/${method}?${qs}`, {retryDelayMs: 2_100});
     if (body.status !== "OK") throw new Error(`Codeforces ${method}: ${body.comment}`);
     return body.result;
 }
 
 async function fetchCodeforces(handle) {
     const [info] = await codeforces("user.info", {handles: handle});
+    // Codeforces permits one API request per two seconds, including retries.
+    await sleep(2_100);
     const submissions = await codeforces("user.status", {handle});
+    await sleep(2_100);
     const ratingChanges = await codeforces("user.rating", {handle});
 
     const calendar = {};

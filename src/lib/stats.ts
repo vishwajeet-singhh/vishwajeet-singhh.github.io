@@ -229,12 +229,13 @@ export const SOURCE_NAMES: SourceName[] = [...PLATFORM_ORDER, "github"];
 /** Replaces one source if the incoming copy is newer. */
 export function mergeSource(stats: Stats, name: SourceName, data: unknown): Stats {
     if (!data) return stats;
-    if (name === "github") return {...stats, github: newer(stats.github, data as GitHubStats)};
-    const platforms = {...stats.platforms, [name]: newer(stats.platforms[name] as Timestamped, data as Timestamped)};
     const fetched = (data as { fetchedAt?: string }).fetchedAt ?? "";
+    const generatedAt = fetched > stats.generatedAt ? fetched : stats.generatedAt;
+    if (name === "github") return {...stats, generatedAt, github: newer(stats.github, data as GitHubStats)};
+    const platforms = {...stats.platforms, [name]: newer(stats.platforms[name] as Timestamped, data as Timestamped)};
     return {
         ...stats,
-        generatedAt: fetched > stats.generatedAt ? fetched : stats.generatedAt,
+        generatedAt,
         platforms: platforms as Stats["platforms"],
     };
 }

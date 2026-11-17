@@ -18,6 +18,16 @@ const Rich = ({text}: { text: string }) => (
     </>
 );
 
+const ContributionList = ({points}: { points: string[] }) => (
+    <ul className="mt-3 list-disc space-y-3 pl-4 marker:text-ink-3">
+        {points.map((point) => (
+            <li key={point} className="pl-1 text-[15px] leading-relaxed text-ink-2">
+                <Rich text={point}/>
+            </li>
+        ))}
+    </ul>
+);
+
 const COMPANIES = [...new Set(ROLES.map((role) => role.company))];
 const PRIMARY_TOOL_NAMES = new Set(["Java", "Python", "Spring Boot", "PostgreSQL", "Redis", "Docker"]);
 const PRIMARY_TOOLS = ROLE_STACK.filter((tool) => PRIMARY_TOOL_NAMES.has(tool));
@@ -27,7 +37,7 @@ const Experience = () => (
     <Section
         id="experience"
         title="Experience"
-        lede="Hands-on engineering, from API design to production reliability."
+        lede="Product features, integrations and backend improvements."
     >
         <div className="space-y-4">
             {COMPANIES.map((company) => {
@@ -72,13 +82,18 @@ const Experience = () => (
                                         )}
 
                                         {role.points.length > 0 && (
-                                            <ul className="mt-4 list-disc space-y-3 pl-4 marker:text-ink-3">
-                                                {role.points.map((point) => (
-                                                    <li key={point} className="pl-1 text-[15px] leading-relaxed text-ink-2">
-                                                        <Rich text={point}/>
-                                                    </li>
+                                            <ContributionList points={role.points}/>
+                                        )}
+
+                                        {role.groups && (
+                                            <div className="mt-6 space-y-7">
+                                                {role.groups.map((group) => (
+                                                    <div key={group.title}>
+                                                        <h5 className="text-[15px] font-semibold leading-snug text-ink">{group.title}</h5>
+                                                        <ContributionList points={group.points}/>
+                                                    </div>
                                                 ))}
-                                            </ul>
+                                            </div>
                                         )}
 
                                         {role === ROLES[0] && (

@@ -20,7 +20,7 @@ npm run build      # type-check + production build into dist/
 | `src/data/stats.json` | Stats snapshot baked into the page. Committed so builds work offline |
 | `scripts/sources.mjs` | Fetches every platform. Shared by the build script and the Worker |
 | `scripts/fetch-stats.mjs` | Writes the baked snapshot (runs before each deploy) |
-| `worker/` | Cloudflare Worker that keeps the stats fresh on visits (at most every 5 min) |
+| `worker/` | Cloudflare Worker that keeps the stats fresh on visits (at most once per minute) |
 | `src/components/` | One file per section, plus `Heatmap`, `DifficultyBar`, `PlatformCard` |
 | `src/index.css` | Design tokens (colours, heatmap ramp, difficulty colours) |
 
@@ -50,9 +50,12 @@ So visits drive the updates, through a small Cloudflare Worker (`worker/`, free 
 1. The page renders the snapshot baked in at build time, instantly. `npm run stats` runs before every build and the
    deploy workflow rebuilds daily, so this is never more than a day old and is what remains if the Worker is down.
 2. It then calls `GET /stats` on the Worker and keeps whichever copy of each source is newer.
-3. For each source nobody has refreshed in the last 5 minutes, it calls `POST /refresh/:name`. The Worker makes an
-   atomic claim in D1 before fetching, so only one visitor per source per 5 minutes triggers a request to LeetCode
+3. For each source nobody has attempted to refresh in the last minute, it calls `POST /refresh/:name`. The Worker makes an
+   atomic claim in D1 before fetching, so only one visitor per source per minute triggers a request to LeetCode
    and the others, however many people visit. Everyone else gets the stored numbers.
+4. An open, visible tab checks again every 60 seconds. Hidden tabs pause checks and refresh when overdue on return.
+   A 45-second timeout prevents a stalled request from blocking later checks. Failed sources keep their last good
+   snapshot and can be retried in the next refresh window. Codeforces API calls are spaced over two seconds apart.
 
 Each source is refreshed in its own request, which keeps every run well inside the free plan's CPU and subrequest
 limits (about 1–4 outbound requests and a few ms of CPU per source once the first run is done). If nobody visits,
@@ -73,6 +76,9 @@ npm run deploy                              # prints the Worker URL
 Then put the URL it prints into `VITE_STATS_API_URL` in `.env` (currently
 `https://vishwajeet-stats.recusant.workers.dev`) and push. Both `npm run dev` and the deploy build read it. With the
 value empty the site works exactly as before, just without live updates.
+
+When changing the sync interval, deploy both the site and the Worker: the browser's polling interval and the
+Worker's refresh window must match. Platform-side caching can delay when newly solved problems appear upstream.
 
 To add another origin (e.g. a preview domain), edit `ALLOWED_ORIGINS` in `worker/wrangler.toml` and redeploy.
 

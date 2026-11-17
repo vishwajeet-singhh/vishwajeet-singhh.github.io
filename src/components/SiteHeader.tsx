@@ -1,16 +1,18 @@
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {ArrowUpRight, Mail, Menu, X} from "lucide-react";
 import {GitHubIcon, LinkedInIcon} from "@/components/icons";
 import {SHOW_PROBLEM_SOLVING} from "@/data/features";
 import {PROFILE} from "@/data/profile";
+import {useStats} from "@/lib/live-stats";
 
 const NAV_ITEMS = [
     {id: "about", label: "About"},
+    // Shown only when the section is (see src/data/features.ts).
+    ...(SHOW_PROBLEM_SOLVING ? [{id: "problem-solving", label: "Problem solving"}] : []),
+    {id: "github-contributions", label: "GitHub"},
+    {id: "skills", label: "Skills"},
     {id: "experience", label: "Experience"},
     {id: "open-source", label: "Projects"},
-    // Shown only when the section is (see src/data/features.ts).
-    ...(SHOW_PROBLEM_SOLVING ? [{id: "problem-solving", label: "Activity"}] : []),
-    {id: "skills", label: "Skills"},
     {id: "contact", label: "Contact"},
 ];
 
@@ -18,7 +20,7 @@ const NAV_ITEMS = [
 const useActiveSection = (ids: string[]) => {
     const [active, setActive] = useState<string | null>(null);
     useEffect(() => {
-        // Scroll events already fire at most once per frame; five rect reads are cheap.
+        // Scroll events already fire at most once per frame; these few rect reads are cheap.
         const update = () => {
             const doc = document.documentElement;
             if (window.innerHeight + window.scrollY >= doc.scrollHeight - 4) {
@@ -44,9 +46,13 @@ const useActiveSection = (ids: string[]) => {
     return active;
 };
 
-const ids = NAV_ITEMS.map((item) => item.id);
-
 const SiteHeader = () => {
+    const {stats} = useStats();
+    const navItems = useMemo(
+        () => NAV_ITEMS.filter((item) => item.id !== "github-contributions" || stats.github),
+        [stats.github],
+    );
+    const ids = useMemo(() => navItems.map((item) => item.id), [navItems]);
     const [scrolled, setScrolled] = useState(false);
     const [open, setOpen] = useState(false);
     const active = useActiveSection(ids);
@@ -84,7 +90,7 @@ const SiteHeader = () => {
 
                 <nav aria-label="Primary" className="hidden xl:block">
                     <ul className="flex items-center gap-0.5">
-                        {NAV_ITEMS.map((item) => {
+                        {navItems.map((item) => {
                             const isActive = active === item.id;
                             return (
                                 <li key={item.id}>
@@ -143,9 +149,9 @@ const SiteHeader = () => {
             </div>
 
             {open && (
-                <nav id="mobile-nav" aria-label="Primary" className="border-t border-line xl:hidden">
+                <nav id="mobile-nav" aria-label="Primary" className="max-h-[calc(100dvh-var(--header-h))] overflow-y-auto border-t border-line xl:hidden">
                     <ul className="page-container py-2">
-                        {NAV_ITEMS.map((item) => (
+                        {navItems.map((item) => (
                             <li key={item.id} className="border-b border-line">
                                 <a
                                     href={`#${item.id}`}

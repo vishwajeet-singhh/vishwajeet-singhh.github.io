@@ -63,7 +63,7 @@ const Contact = () => {
                                 {PROFILE.email}
                             </a>
                             <p className="mt-3 text-[15px] leading-relaxed text-ink-2">
-                                Have a backend role, a systems problem or a project in mind? Let’s talk.
+                                Have a backend role or project in mind? Let’s talk.
                             </p>
                         </div>
                         <div className="flex shrink-0 flex-wrap gap-3">

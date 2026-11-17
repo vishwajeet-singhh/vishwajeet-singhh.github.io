@@ -8,7 +8,7 @@
  *
  * The page calls GET /stats on load, then POST /refresh/:name for each stale
  * source. The "has anyone refreshed this recently?" check is an atomic claim
- * in D1, so ten visitors inside five minutes still cause one fetch per source.
+ * in D1, so ten visitors inside one minute still cause one fetch per source.
  * Memory inside the Worker can't do this: Cloudflare runs many separate
  * copies of it around the world, each with its own memory.
  *
@@ -17,7 +17,7 @@
  */
 import {collectSource, SOURCE_NAMES, TIME_ZONE} from "../../scripts/sources.mjs";
 
-const REFRESH_WINDOW_MS = 5 * 60_000;
+const REFRESH_WINDOW_MS = 60_000;
 // A cold CodeChef run can need many rating lookups; cap them per run and let
 // later runs finish the rest. Warm runs need 1–4 requests per source.
 const COLLECT_OPTIONS = {retries: 1, maxRatingLookups: 20};
@@ -49,13 +49,14 @@ export default {
                 const name = refreshMatch[1];
                 if (!SOURCE_NAMES.includes(name)) return json({error: `Unknown source "${name}"`}, 404, cors);
 
-                if (!(await claim(env, name))) {
+                const claimedAt = await claim(env, name);
+                if (claimedAt === null) {
                     // Someone refreshed (or is refreshing) this source within the window.
                     const row = (await readAll(env))[name];
                     return json({name, data: publicSource(parse(row)), refreshed: false}, 200, cors);
                 }
                 // waitUntil lets the refresh finish even if the visitor closes the tab.
-                const work = refreshSource(env, name);
+                const work = refreshSource(env, name, claimedAt);
                 ctx.waitUntil(work.catch(() => {}));
                 const data = await work;
                 return json({name, data: publicSource(data), refreshed: true}, 200, cors);
@@ -71,7 +72,8 @@ export default {
 
 /**
  * Atomically claims the right to refresh `name`: succeeds only if nobody has
- * claimed it within the window. Returns true for exactly one caller per window.
+ * claimed it within the window. Returns the attempt timestamp for the winning
+ * caller, or null when another caller holds the current window.
  */
 async function claim(env, name) {
     const now = Date.now();
@@ -86,19 +88,21 @@ async function claim(env, name) {
             .bind(name, now, now - REFRESH_WINDOW_MS)
             .first(),
     );
-    return Boolean(row);
+    return row ? now : null;
 }
 
-async function refreshSource(env, name) {
+async function refreshSource(env, name, claimedAt) {
     const previous = parse((await readAll(env))[name]);
     const snapshot = name === "github" ? {github: previous} : {platforms: {[name]: previous}};
     const data = await collectSource(name, snapshot, {...COLLECT_OPTIONS, githubToken: env.GITHUB_TOKEN});
-    await query(env, (db) =>
+    // A slow upstream may outlive its window. Only the latest claim may write.
+    const row = await query(env, (db) =>
         db
-            .prepare("UPDATE sources SET data = ?2, fetched_at = ?3 WHERE name = ?1")
-            .bind(name, JSON.stringify(data), Date.parse(data.fetchedAt))
-            .run(),
+            .prepare("UPDATE sources SET data = ?2, fetched_at = ?3 WHERE name = ?1 AND checked_at = ?4 RETURNING data")
+            .bind(name, JSON.stringify(data), Date.parse(data.fetchedAt), claimedAt)
+            .first(),
     );
+    if (!row) return parse((await readAll(env))[name]);
     console.log(`✓ ${name}`);
     return data;
 }

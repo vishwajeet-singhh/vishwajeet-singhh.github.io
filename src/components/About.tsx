@@ -17,11 +17,11 @@ const About = () => {
                         <p key={paragraph} className={index === 0 ? "text-ink" : undefined}>{paragraph}</p>
                     ))}
                     {showSolved && solved > 0 && (
-                        <p>I've solved {formatNumber(solved)} problems across Codeforces and LeetCode, and I keep practising to sharpen my problem-solving skills.</p>
+                        <p>I've solved {formatNumber(solved)} problems across Codeforces and LeetCode, and I practise regularly to improve my problem-solving skills.</p>
                     )}
                     {ABOUT.slice(2).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
                 </div>
-                <ul aria-label="Engineering focus" className="mt-5 flex flex-wrap gap-2 border-t border-line pt-5">
+                <ul aria-label="Backend work" className="mt-5 flex flex-wrap gap-2 border-t border-line pt-5">
                     {ENGINEERING_FOCUS.map((focus) => <li className="chip" key={focus.title}>{focus.title}</li>)}
                 </ul>
             </div>

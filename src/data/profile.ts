@@ -16,16 +16,16 @@ export const PROFILE = {
 } as const;
 
 export const ABOUT = [
-    "I'm a Backend Developer with nearly three years of experience designing, building and improving backend systems. I focus on clean, efficient solutions that remain reliable and maintainable as they scale.",
-    "My work spans API design, databases, data pipelines and production reliability. I've used Java with Spring Boot and Python with Flask to build these systems, choosing tools to fit the problem.",
-    "I'm developing my skills in design patterns, high-level design (HLD) and low-level design (LLD). I keep learning, question assumptions and enjoy taking on challenging backend problems. I'm also keen to explore Kotlin, Go and Rust.",
+    "I build APIs and backend services from scratch, integrate them with other services and databases, and maintain them after release. My work includes debugging, performance improvements and deployment.",
+    "I've worked on authentication flows, database integrations, background jobs, ETL workflows and Redis-backed rate limiting. I also independently built and maintain the licensing service and its internal generation UI.",
+    "I'm continuing to build my understanding of design patterns and system design. I enjoy working through practical problems, learning from feedback and finding simpler ways to write and maintain code.",
 ] as const;
 
 export const ENGINEERING_FOCUS = [
-    {title: "API & service design", detail: "Production APIs, integrations and asynchronous processing."},
-    {title: "Data & performance", detail: "Query optimisation, bulk operations and connection pools."},
-    {title: "Scalability & reliability", detail: "Shared rate limits, concurrency and crash recovery."},
-    {title: "Security & ownership", detail: "Licensing, access control and services in production."},
+    {title: "APIs & backend services", detail: "REST APIs, service integrations and product features."},
+    {title: "Databases & batch processing", detail: "SQL optimisation, connection pooling and ETL workflow contributions."},
+    {title: "Async & concurrent processing", detail: "Background jobs, thread pools and Redis-backed rate limiting."},
+    {title: "Authentication & licensing", detail: "OAuth2 integration, OTP verification and RSA-signed licences."},
 ] as const;
 
 export type Highlight = {
@@ -35,11 +35,16 @@ export type Highlight = {
 };
 
 export const HIGHLIGHTS: Highlight[] = [
-    {value: "25+", label: "Production REST APIs", detail: "designed and delivered"},
+    {value: "25+", label: "Production REST APIs", detail: "built and maintained"},
     {value: "~95%", label: "Shorter pipeline runtime", detail: "on datasets of 100k+ tables"},
     {value: "500+", label: "Users and B2B tenants", detail: "on the licensing service"},
     {value: "50%", label: "Shorter review turnaround", detail: "after rolling out Helix"},
 ];
+
+export type ContributionGroup = {
+    title: string;
+    points: string[];
+};
 
 export type Role = {
     title: string;
@@ -48,6 +53,7 @@ export type Role = {
     location: string;
     summary: string;
     points: string[];
+    groups?: ContributionGroup[];
 };
 
 export const ROLES: Role[] = [
@@ -56,15 +62,56 @@ export const ROLES: Role[] = [
         company: "Maya Data Privacy",
         period: "Jan 2024 – Present",
         location: "Remote",
-        summary: "Core Backend Developer in a product team of around 20 people.",
-        points: [
-            "Designed, built and operated **25+ production REST APIs** using Java and Spring Boot, integrating PostgreSQL, Oracle and HANA to support core product workflows.",
-            "Slashed pipeline runtime by **~95%** on **100k+ table datasets** using predicate pushdown, batch concurrency tuning and per-tenant HikariCP pool sizing.",
-            "Accelerated bulk-insert performance by **~50%** using a journaling pattern for high-volume writes, while preserving data integrity.",
-            "Engineered configurable sliding-window **RPM/TPM rate limiting across 3 AI providers** using Redis and atomic Lua scripts to curb API abuse and enforce fair usage.",
-            "Secured **500+ SaaS users and B2B tenants** by designing and operating a licensing service for on-prem/B2B installs with PEM-based key pairs.",
-            "Shipped bulk edit/delete for large tables, snapshotting matched rows upfront to prevent pagination drift and using composite-key deduplication to eliminate double-processing.",
-            "Cut PR review turnaround by **50%** by deploying Helix across my GitHub organisation.",
+        summary: "Backend Developer working on product features in a team of around 20 people.",
+        points: [],
+        groups: [
+            {
+                title: "Licensing service · end-to-end ownership",
+                points: [
+                    "Built and maintained the licensing service and internal generation UI as its **sole developer**, supporting **500+ SaaS users and B2B tenants**, with versioned APIs, domain/user configuration, duration presets, API-version selection and JSON preview/copy/download.",
+                    "Implemented **RSA/SHA-256 digital signatures**, PEM key loading and public-key verification for licence authenticity and integrity, with signed JSON downloads, domain checks, UTC expiry handling, upload/startup validation, scheduled expiry checks, gateway enforcement and synchronised licence-state updates.",
+                    "Connected licence installation to transactional organisation/user provisioning, existing role assignment, licensed user limits and forced initial-password reset; added digitally signed usage audit reports aggregating licensing-period metrics across backend products.",
+                ],
+            },
+            {
+                title: "APIs, databases & batch processing",
+                points: [
+                    "Built and operated **25+ production REST APIs** using Java and Spring Boot, integrating PostgreSQL, Oracle and HANA.",
+                    "Reduced pipeline runtime by **~95%** on **100k+ table datasets** by moving filtering and sampling into SQL and tuning concurrent processing and connection pools.",
+                    "Added job-scoped HikariCP connection pooling with credential-based reuse, configurable limits and cleanup after processing.",
+                    "Improved bulk-insert performance by **~50%** by temporarily disabling active database triggers and keeping persistent records for restoration after processing.",
+                    "Contributed transformation logic and Spring Batch flow handling to ETL workflows, including IP, URL and multilingual email processing with tests.",
+                    "Added concurrent table processing and background-job handling, including completion/failure status updates and stale-job cleanup.",
+                ],
+            },
+            {
+                title: "AI services & distributed rate limiting",
+                points: [
+                    "Implemented Redis-backed distributed request and token limits across **3 AI providers** using sliding windows and atomic Lua scripts, with token-budget reservation, usage reconciliation and per-user fair-share checks under load.",
+                    "Added validated per-model quota configuration, usage events and an internal usage API; handled provider throttling with model cooldowns, HTTP 429 responses and retry timing.",
+                ],
+            },
+            {
+                title: "Service integrations & bulk operations",
+                points: [
+                    "Added user- and organisation-scoped settings and default-project resolution; enhanced bulk configuration edits/deletes with stable filtered selection, composite-key deduplication, bounded requests and pagination-safe deletion.",
+                    "Added asynchronous file-job completion/failure callbacks, output handoff and project-context propagation; implemented IBAN and credit-card checksum validation, improved phone-number matching and updated spaCy model loading.",
+                ],
+            },
+            {
+                title: "Authentication & user onboarding",
+                points: [
+                    "Integrated Microsoft OAuth2 sign-in with local account creation, existing role assignment and JWT issuance, and corrected access-token expiry after refresh.",
+                    "Added registration email OTP verification with expiry, pending-state cleanup and resend cooldowns/limits; extended organisation-controlled OTP login and password-reset flows.",
+                ],
+            },
+            {
+                title: "Developer tooling & delivery",
+                points: [
+                    "Built and deployed Helix across my GitHub organisation, reducing PR review turnaround by **50%**, with authenticated webhooks, GitHub App authentication and review API integration.",
+                    "Processed reviews asynchronously and validated inline feedback from local Ollama output against pull-request diffs; added Docker packaging and multi-architecture image build/publish workflows.",
+                ],
+            },
         ],
     },
     {
@@ -72,13 +119,13 @@ export const ROLES: Role[] = [
         company: "Maya Data Privacy",
         period: "Dec 2023",
         location: "Remote",
-        summary: "Gained hands-on experience navigating a live production codebase, working within a team Git workflow and applying professional coding conventions.",
+        summary: "Worked with a live product codebase, team Git workflows and coding conventions.",
         points: [],
     },
 ];
 
 export const ROLE_STACK = [
-    "Java", "Spring Boot", "PostgreSQL", "Oracle", "HANA", "HikariCP", "Redis", "Lua", "Git", "GitHub", "Docker",
+    "Java", "Python", "Spring Boot", "Spring Security", "Spring Batch", "Flask", "PostgreSQL", "Oracle", "HANA", "HikariCP", "Redis", "Lua", "Git", "GitHub", "Docker",
 ];
 
 export const EDUCATION = {
@@ -101,7 +148,7 @@ export const STACK: StackGroup[] = [
     },
     {
         title: "Backend & APIs",
-        items: ["Spring Boot", "Spring Data JPA", "Flask", "REST APIs", "Microservices", "Webhooks"],
+        items: ["Spring Boot", "Spring Security", "Spring Data JPA", "Spring Batch", "Flask", "REST APIs", "Microservices", "Webhooks", "OAuth2", "JWT"],
     },
     {
         title: "Databases & caching",
@@ -115,6 +162,10 @@ export const STACK: StackGroup[] = [
         title: "Build, tools & logging",
         items: ["Git", "GitHub", "Maven", "Gradle", "Postman", "Lombok", "Log4j2"],
     },
+    {
+        title: "Backend concepts",
+        items: ["ETL workflows", "Batch processing", "Asynchronous jobs", "Concurrency", "SQL optimisation", "Connection pooling", "Distributed rate limiting", "Pagination & deduplication", "Digital signatures (RSA/SHA-256)", "PEM key handling"],
+    },
 ];
 
 export const HELIX = {
@@ -122,12 +173,12 @@ export const HELIX = {
     tagline: "Self-hosted AI pull-request reviewer",
     url: "https://github.com/vishwajeet-singhh/helix",
     description:
-        "Helix reviews GitHub pull requests with a local LLM served by Ollama, so code never leaves your own infrastructure. It is published as a public Docker image: a team can pull it, run it on their own servers and connect it to their GitHub organisation.",
-    usage: "Cut PR review turnaround by 50% by deploying Helix across my GitHub organisation.",
+        "I built Helix to automate pull-request reviews on GitHub. It runs on your own infrastructure and is available as a public Docker image.",
+    usage: "Reduced PR review turnaround by 50% after deploying it across my GitHub organisation.",
     points: [
-        "Keeps webhook handling responsive by returning 202 Accepted and processing reviews asynchronously.",
-        "Keeps feedback focused by posting one review with a verdict and inline comments for warning- and critical-level findings.",
-        "Keeps inference on your infrastructure by running a configurable model through Ollama.",
+        "Verifies GitHub webhook signatures, returns 202 Accepted and processes reviews asynchronously.",
+        "Posts one review with a verdict and inline comments for warning and critical findings.",
+        "Connects through a GitHub App and uses a configurable local model served by Ollama.",
     ],
     stack: ["Java", "Spring Boot", "Maven", "Docker", "GitHub App", "Webhooks", "Ollama", "LLM", "Nginx", "GCP"],
 };

@@ -1,4 +1,4 @@
-import {Cloud, Code2, Database, Server, Wrench, type LucideIcon} from "lucide-react";
+import {Cloud, Code2, Database, Server, Workflow, Wrench, type LucideIcon} from "lucide-react";
 import Section from "@/components/Section";
 import {STACK} from "@/data/profile";
 
@@ -8,13 +8,14 @@ const GROUP_ICONS: Record<string, LucideIcon> = {
     "Databases & caching": Database,
     "Cloud & deployment": Cloud,
     "Build, tools & logging": Wrench,
+    "Backend concepts": Workflow,
 };
 
 const Stack = () => (
     <Section
         id="skills"
         title="Technical skills"
-        lede="Technologies used in my backend work and Helix."
+        lede="Technologies and concepts I've used in product development and Helix."
     >
         <div className="grid gap-4 sm:grid-cols-2">
             {STACK.map((group, index) => {

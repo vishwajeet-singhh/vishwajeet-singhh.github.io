@@ -1,13 +1,13 @@
-import {ArrowUpRight, Database, FileText, Layers3, ShieldCheck, Workflow} from "lucide-react";
+import {ArrowUpRight, Code2, Database, FileText, ShieldCheck, Workflow} from "lucide-react";
 import {GitHubIcon, LinkedInIcon} from "@/components/icons";
 import {ENGINEERING_FOCUS, PROFILE} from "@/data/profile";
 
-const FOCUS_ICONS = [Layers3, Database, Workflow, ShieldCheck];
+const FOCUS_ICONS = [Code2, Database, Workflow, ShieldCheck];
 
 const ProfileSidebar = () => (
     <aside aria-label="Professional profile" className="hidden min-w-0 space-y-4 lg:sticky lg:top-[88px] lg:block lg:self-start">
         <section className="card p-5" aria-labelledby="focus-title">
-            <h2 id="focus-title" className="text-[16px] font-semibold">Engineering focus</h2>
+            <h2 id="focus-title" className="text-[16px] font-semibold">Backend work</h2>
             <ul className="mt-5 space-y-5">
                 {ENGINEERING_FOCUS.map((focus, i) => {
                     const Icon = FOCUS_ICONS[i];

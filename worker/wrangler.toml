@@ -4,7 +4,7 @@ main = "src/index.js"
 compatibility_date = "2026-09-01"
 
 # One row per source (numbers + incremental bookkeeping) and the timestamp
-# that throttles refreshes to once per 5 minutes. Create it with:
+# that throttles refreshes to once per minute. Create it with:
 #   npx wrangler d1 create portfolio-stats
 # paste the database_id it prints below, then run `npm run seed`.
 # The table creates itself on first use.

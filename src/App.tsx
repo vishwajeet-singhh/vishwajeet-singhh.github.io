@@ -1,6 +1,7 @@
 import About from "@/components/About";
 import Contact from "@/components/Contact";
 import Experience from "@/components/Experience";
+import GitHubContributions from "@/components/GitHubContributions";
 import Hero from "@/components/Hero";
 import OpenSource from "@/components/OpenSource";
 import ProblemSolving from "@/components/ProblemSolving";
@@ -22,10 +23,11 @@ const App = () => (
             <main id="main" tabIndex={-1} className="min-w-0">
                 <Hero/>
                 <About/>
+                {SHOW_PROBLEM_SOLVING && <ProblemSolving/>}
+                <GitHubContributions/>
+                <Stack/>
                 <Experience/>
                 <OpenSource/>
-                {SHOW_PROBLEM_SOLVING && <ProblemSolving/>}
-                <Stack/>
                 <Contact/>
             </main>
             <ProfileSidebar/>
